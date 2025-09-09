@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.annotations.SQLDelete;
 import com.SpringExaminationSystem.model.entity.BaseEntity;
+import com.SpringExaminationSystem.model.entity.exam.student.Option;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -48,5 +49,10 @@ public class Question extends BaseEntity {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<QuestionOption> options = new ArrayList<>();
+
+    public static List<Option> randomQuestion(List<Option> options2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'randomQuestion'");
+    }
 
 }

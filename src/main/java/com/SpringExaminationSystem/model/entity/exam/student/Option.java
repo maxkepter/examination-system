@@ -3,8 +3,6 @@ package com.SpringExaminationSystem.model.entity.exam.student;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.annotation.Scope;
-
 import com.SpringExaminationSystem.model.entity.exam.QuestionOption;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +14,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Scope("prototype")
 public class Option {
     private int optionId;
     private String content;
@@ -27,6 +24,7 @@ public class Option {
     }
 
     public static List<Option> convertFromEntities(List<QuestionOption> options) {
+
         return options.stream().map(Option::convertFromEntity).toList();
     }
 
@@ -38,7 +36,6 @@ public class Option {
             Option option = cloneOptions.remove(randomIndex);
             option.setOptionId(tempOptions.size());
             tempOptions.add(option);
-
         }
         return tempOptions;
     }

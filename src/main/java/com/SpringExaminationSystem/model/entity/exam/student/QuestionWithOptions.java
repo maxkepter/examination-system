@@ -30,7 +30,7 @@ public class QuestionWithOptions {
     public static QuestionWithOptions convertFromEntity(Question question) {
         List<Option> options = Option.convertFromEntities(question.getOptions());
 
-        return new QuestionWithOptions(question.getQuestionContent(), options);
+        return new QuestionWithOptions(question.getQuestionContent(), Option.randomOption(options));
     }
 
     public static List<QuestionWithOptions> convertFromEntities(List<Question> questions) {
@@ -52,4 +52,5 @@ public class QuestionWithOptions {
         }
         questions.addAll(tempQuestions);
     }
+
 }

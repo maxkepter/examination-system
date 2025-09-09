@@ -1,6 +1,5 @@
 package com.SpringExaminationSystem.service.exam;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +30,7 @@ public class StudentExamService {
     @Autowired
     ExamLogService examLogService;
 
+    @Transactional
     public StudentExam getStudentExam(String userName, Integer examId) {
         User user = authInfoDao.findByUserName(userName).getUser();
         StudentExam studentExam = null;

@@ -27,4 +27,9 @@ public class ExamLogService {
         ExamLog examLog = new ExamLog(infomation, studentExam);
         examLogDao.save(examLog);
     }
+
+    public void createChoiceLog(Integer questionId, Integer optionId, boolean isRemove, StudentExam studentExam) {
+        String information = (isRemove ? "Remove " : "Add ") + " option " + optionId + " in question " + questionId;
+        createExamLog(information, studentExam);
+    }
 }
