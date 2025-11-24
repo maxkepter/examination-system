@@ -1,0 +1,11 @@
+package com.examination_system.repository.exam;
+
+import org.springframework.stereotype.Repository;
+
+import com.examination_system.model.entity.exam.Question;
+import com.examination_system.repository.SoftDeleteRepository;
+
+@Repository
+public interface QuestionDao extends SoftDeleteRepository<Question, Integer> {
+
+}
