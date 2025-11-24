@@ -1,0 +1,107 @@
+########################################
+# Unified YAML configuration            #
+# Base + profile-specific sections      #
+# Profiles: dev, prod (default active=dev)
+########################################
+
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: dev
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    org:
+      springframework:
+        web: INFO
+      hibernate:
+        SQL: DEBUG
+        orm:
+          jdbc:
+            bind: TRACE
+
+jwt:
+  secret: super-secret-key
+  expiration-minutes: ${JWT_EXP_MINUTES:15}
+  issuer: ses-base
+  token-prefix: Bearer
+  header: Authorization
+
+---
+# Development profile overrides (H2)
+spring:
+  config:
+    activate:
+      on-profile: dev
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MSSQLServer;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: TRACE
+
+jwt:
+  secret: ZGV2LXNlY3JldC1jaGFuZ2UtbWUtcGxlYXNlLWV4dGVuZC0xMjM0NTY=
+  expiration-minutes: 30
+  issuer: ses-dev
+
+---
+# Production profile overrides (SQL Server)
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: ${DB_URL:jdbc:sqlserver://localhost:1433;databaseName=SpringExamManagement;encrypt=false}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:ChangeMe!}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 600000
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: INFO
+        orm:
+          jdbc:
+            bind: INFO
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-minutes: ${JWT_EXP_MINUTES:60}
+  issuer: ses-prod
