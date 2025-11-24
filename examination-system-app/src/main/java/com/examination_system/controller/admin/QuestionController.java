@@ -1,16 +1,14 @@
-package com.SpringExaminationSystem.controller.exam;
+package com.examination_system.controller.admin;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SpringExaminationSystem.model.dto.common.QuestionDTO;
-import com.SpringExaminationSystem.repository.exam.QuestionDao;
-import com.SpringExaminationSystem.service.exam.QuestionService;
+import com.examination_system.model.dto.common.QuestionDTO;
+import com.examination_system.service.exam.QuestionService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/question")
@@ -20,6 +18,7 @@ public class QuestionController {
     // system.
     // You can define methods here to handle various endpoints related to questions.
     private final QuestionService questionService;
+
     @PostMapping()
     public String createQuestion(@RequestBody QuestionDTO questionDTO) {
         questionService.createQuestion(questionDTO);

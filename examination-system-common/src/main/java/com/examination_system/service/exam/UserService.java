@@ -1,11 +1,5 @@
 package com.examination_system.service.exam;
 
-<<<<<<< HEAD:src/main/java/com/SpringExaminationSystem/service/exam/UserService.java
-import java.util.List;
-
-import org.mapstruct.control.MappingControl.Use;
-=======
->>>>>>> Kepter:examination-system-common/src/main/java/com/examination_system/service/exam/UserService.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +43,5 @@ public class UserService {
         user = userMapper.toEntity(userDTO);
         userDao.save(user);
     }
-    
+
 }

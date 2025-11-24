@@ -7,11 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.SpringExaminationSystem.model.entity.exam.student.StudentExam;
-import com.SpringExaminationSystem.model.entity.user.AuthInfo;
-import com.SpringExaminationSystem.repository.user.AuthInfoDao;
-import com.SpringExaminationSystem.service.exam.StudentExamService;
-
 @SpringBootTest
 class SpringExaminationSystemApplicationTests {
 

@@ -1,4 +1,4 @@
-package com.SpringExaminationSystem.model.dto.common;
+package com.examination_system.model.dto.common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

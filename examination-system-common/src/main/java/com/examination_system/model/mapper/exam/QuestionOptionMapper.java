@@ -1,8 +1,9 @@
-package com.SpringExaminationSystem.model.mapper.exam;
+package com.examination_system.model.mapper.exam;
 
-import com.SpringExaminationSystem.model.dto.common.QuestionOptionDTO;
-import com.SpringExaminationSystem.model.entity.exam.QuestionOption;
 import org.mapstruct.*;
+
+import com.examination_system.model.dto.common.QuestionOptionDTO;
+import com.examination_system.model.entity.exam.QuestionOption;
 
 @Mapper(componentModel = "spring")
 public interface QuestionOptionMapper {

@@ -1,10 +1,10 @@
-package com.SpringExaminationSystem.model.mapper.exam;
+package com.examination_system.model.mapper.exam;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.SpringExaminationSystem.model.dto.common.QuestionDTO;
-import com.SpringExaminationSystem.model.entity.exam.Question;
+import com.examination_system.model.dto.common.QuestionDTO;
+import com.examination_system.model.entity.exam.Question;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
@@ -14,5 +14,4 @@ public interface QuestionMapper {
     @Mapping(source = "chapter.chapterId", target = "chapterId")
     QuestionDTO toDTO(Question question);
 
-    
 }

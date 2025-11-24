@@ -1,7 +1,6 @@
-package com.SpringExaminationSystem.model.dto.common;
+package com.examination_system.model.dto.common;
 
 import java.util.List;
-
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

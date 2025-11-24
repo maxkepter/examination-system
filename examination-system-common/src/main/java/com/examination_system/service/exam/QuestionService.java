@@ -1,19 +1,18 @@
-package com.SpringExaminationSystem.service.exam;
+package com.examination_system.service.exam;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.SpringExaminationSystem.model.dto.common.QuestionDTO;
-import com.SpringExaminationSystem.model.dto.common.QuestionOptionDTO;
-import com.SpringExaminationSystem.model.entity.exam.Chapter;
-import com.SpringExaminationSystem.model.entity.exam.Question;
-import com.SpringExaminationSystem.model.entity.exam.QuestionOption;
-import com.SpringExaminationSystem.model.mapper.exam.QuestionMapper;
-import com.SpringExaminationSystem.model.mapper.exam.QuestionOptionMapper;
-import com.SpringExaminationSystem.repository.exam.QuestionDao;
-import com.SpringExaminationSystem.repository.exam.QuestionOptionDao;
+import com.examination_system.model.dto.common.QuestionDTO;
+import com.examination_system.model.entity.exam.Chapter;
+import com.examination_system.model.entity.exam.Question;
+import com.examination_system.model.entity.exam.QuestionOption;
+import com.examination_system.model.mapper.exam.QuestionMapper;
+import com.examination_system.model.mapper.exam.QuestionOptionMapper;
+import com.examination_system.repository.exam.QuestionDao;
+import com.examination_system.repository.exam.QuestionOptionDao;
 
 @Service
 public class QuestionService {
