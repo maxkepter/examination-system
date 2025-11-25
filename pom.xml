@@ -24,7 +24,10 @@
     </properties>
 
     <modules>
+        <module>examination-system-core</module>
         <module>examination-system-common</module>
+        <module>examination-system-auth</module>
+        <module>examination-system-exam</module>
         <module>examination-system-app</module>
     </modules>
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.annotations.SQLDelete;
 
-import com.examination_system.model.entity.BaseEntity;
+import com.examination_system.core.model.entity.BaseEntity;
 import com.examination_system.model.entity.exam.student.Option;
 
 import jakarta.persistence.CascadeType;

@@ -2,7 +2,7 @@ package com.examination_system.model.entity.user;
 
 import org.hibernate.annotations.SQLDelete;
 
-import com.examination_system.model.entity.BaseEntity;
+import com.examination_system.core.model.entity.BaseEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

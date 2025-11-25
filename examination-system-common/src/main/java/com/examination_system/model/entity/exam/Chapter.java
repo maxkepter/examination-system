@@ -3,7 +3,7 @@ package com.examination_system.model.entity.exam;
 import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
 
-import com.examination_system.model.entity.BaseEntity;
+import com.examination_system.core.model.entity.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

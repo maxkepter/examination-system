@@ -1,0 +1,33 @@
+################################
+# Production profile (SQLServer)
+################################
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:sqlserver://localhost:1433;databaseName=SpringExamManagement;encrypt=false}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:ChangeMe!}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 600000
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-minutes: ${JWT_EXP_MINUTES:60}
+  issuer: ses-prod
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: INFO
+        orm:
+          jdbc:
+            bind: INFO

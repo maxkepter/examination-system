@@ -44,17 +44,17 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 .authorizeHttpRequests(
-                        auth -> auth.requestMatchers("/api/auth/**", "/h2-console/**").permitAll()
-                                .requestMatchers("/api/user/**", "/api/exam/**").hasAnyRole("ADMIN", "USER")
+                        auth -> auth.requestMatchers("/auth/**", "/h2-console/**").permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/student/**").hasAnyRole("ADMIN", "USER")
                                 .anyRequest().authenticated())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider())
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .formLogin(form -> form.disable())
                 .logout(logout -> logout
-                        .logoutUrl("/api/auth/logout")
+                        .logoutUrl("/auth/logout")
                         .logoutSuccessHandler((req, res, auth) -> {
-                            req.getSession().invalidate();
                             res.setStatus(HttpServletResponse.SC_OK);
                         }))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

@@ -6,7 +6,7 @@ import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
 
-import com.examination_system.model.entity.BaseEntity;
+import com.examination_system.core.model.entity.BaseEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

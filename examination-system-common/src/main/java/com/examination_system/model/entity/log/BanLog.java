@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.context.annotation.Scope;
 
-import com.examination_system.model.entity.BaseLog;
+import com.examination_system.core.model.entity.BaseLog;
 import com.examination_system.model.entity.user.User;
 
 import jakarta.persistence.Column;

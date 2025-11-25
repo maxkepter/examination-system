@@ -9,7 +9,7 @@ import org.hibernate.annotations.SQLDelete;
 
 import com.examination_system.model.converter.ExamDetailConverter;
 import com.examination_system.model.converter.StudentChoiceConverter;
-import com.examination_system.model.entity.BaseEntity;
+import com.examination_system.core.model.entity.BaseEntity;
 import com.examination_system.model.entity.exam.Exam;
 import com.examination_system.model.entity.user.User;
 

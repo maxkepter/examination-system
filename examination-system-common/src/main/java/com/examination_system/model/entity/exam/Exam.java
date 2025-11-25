@@ -7,7 +7,7 @@ import java.util.List;
 import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
 
-import com.examination_system.model.entity.BaseEntity;
+import com.examination_system.core.model.entity.BaseEntity;
 import com.examination_system.model.entity.user.User;
 
 import jakarta.persistence.Column;
