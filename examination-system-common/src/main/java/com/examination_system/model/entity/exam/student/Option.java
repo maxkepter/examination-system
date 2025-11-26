@@ -15,7 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Option {
-    private int optionId;
+    private long optionId;
     private String content;
     private boolean isCorrect;
 

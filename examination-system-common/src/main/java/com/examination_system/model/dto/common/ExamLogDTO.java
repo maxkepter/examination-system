@@ -15,5 +15,5 @@ public class ExamLogDTO {
     @NotBlank(message = "Infomartion can not blank !")
     String infomarion;
     @NotNull(message = "Student Exam Id is required !")
-    Integer studentExamId;
+    Long studentExamId;
 }

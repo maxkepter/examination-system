@@ -1,4 +1,4 @@
-package com.examination_system.auth.service;
+package com.examination_system.service;
 
 import java.util.Optional;
 

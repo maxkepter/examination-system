@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 public class Question extends BaseEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Integer questionId;
+    private Long questionId;
 
     @Lob
     @Column(nullable = false, columnDefinition = "VARCHAR(MAX)")

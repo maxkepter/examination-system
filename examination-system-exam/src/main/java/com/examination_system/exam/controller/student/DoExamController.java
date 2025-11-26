@@ -49,13 +49,13 @@ public class DoExamController {
     }
 
     @PostMapping("/submit/{studentExamId}")
-    public ResponseEntity<Float> submitExam(@PathVariable Integer studentExamId) {
+    public ResponseEntity<Float> submitExam(@PathVariable Long studentExamId) {
         StudentExam studentExam = doExamService.submit(studentExamId);
         return ResponseEntity.ok(studentExam.getScore());
     }
 
     @PostMapping("/choice/{studentExamId}")
-    public ResponseEntity<String> saveChoice(@PathVariable Integer studentExamId,
+    public ResponseEntity<String> saveChoice(@PathVariable Long studentExamId,
             @RequestBody StudentChoiceRequest request) {
         doExamService.saveStudentChoice(studentExamId, request.getStudentChoice(), request.isRemove());
         return ResponseEntity.ok("Saved");

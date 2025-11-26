@@ -31,7 +31,7 @@ public class UserExamController {
     }
 
     @GetMapping(path = "/view/{studentExamId}")
-    public ResponseEntity<StudentExamResponse> getStudentExam(@PathVariable Integer studentExamId) {
+    public ResponseEntity<StudentExamResponse> getStudentExam(@PathVariable Long studentExamId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         return ResponseEntity.ok(examHistoryService.getStudentExam(username, studentExamId));

@@ -34,7 +34,7 @@ logging:
             bind: TRACE
 
 jwt:
-  secret: super-secret-key
+  secret: c3VwZXItc2VjcmV0LWtleS1mb3Itand0LXRva2VuLXNpZ25pbmctMzItYnl0ZXMtbG9uZw==
   expiration-minutes: ${JWT_EXP_MINUTES:15}
   issuer: ses-base
   token-prefix: Bearer

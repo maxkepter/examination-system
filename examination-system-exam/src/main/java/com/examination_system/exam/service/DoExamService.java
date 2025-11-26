@@ -24,7 +24,7 @@ public class DoExamService {
     ExamLogService examLogService;
 
     @Transactional
-    public StudentExam submit(Integer studentExamId) {
+    public StudentExam submit(Long studentExamId) {
         StudentExam studentExam = studentExamRepository.findActiveById(studentExamId)
                 .orElseThrow(() -> new RuntimeException("Not found student exam wtih id: " + studentExamId));
 
@@ -38,7 +38,7 @@ public class DoExamService {
         return studentExam;
     }
 
-    private float calculateScore(List<QuestionWithOptions> examDetail, Map<Integer, Set<Integer>> studentChoice) {
+    private float calculateScore(List<QuestionWithOptions> examDetail, Map<Long, Set<Long>> studentChoice) {
         if (examDetail == null || examDetail.isEmpty()) {
             throw new IllegalArgumentException("Exam Detail is required");
         }
@@ -54,21 +54,21 @@ public class DoExamService {
 
     }
 
-    private boolean isChoiceCorrect(QuestionWithOptions question, Map<Integer, Set<Integer>> studentChoice) {
-        int questionId = question.getQuestionId();
+    private boolean isChoiceCorrect(QuestionWithOptions question, Map<Long, Set<Long>> studentChoice) {
+        long questionId = question.getQuestionId();
         if (!studentChoice.containsKey(questionId))
             return false;
         // get all optionid correct from question
-        Set<Integer> correctOptions = question.getOptions().stream()
+        Set<Long> correctOptions = question.getOptions().stream()
                 .filter(Option::isCorrect)
                 .map(Option::getOptionId)
                 .collect(Collectors.toSet());
         // get choice from student choice
-        Set<Integer> chosenOptions = studentChoice.get(questionId);
+        Set<Long> chosenOptions = studentChoice.get(questionId);
         return chosenOptions.equals(correctOptions);
     }
 
-    public void saveStudentChoice(Integer studentExamId, Map<Integer, Set<Integer>> studentChoice, boolean isRemove) {
+    public void saveStudentChoice(Long studentExamId, Map<Long, Set<Long>> studentChoice, boolean isRemove) {
         StudentExam studentExam = studentExamRepository.findActiveById(studentExamId)
                 .orElseThrow(() -> new RuntimeException("Not found student exam wtih id: " + studentExamId));
 
@@ -78,19 +78,19 @@ public class DoExamService {
         }
 
         // if current choice is null initialize new one
-        Map<Integer, Set<Integer>> currentChoice = studentExam.getStudentChoice();
+        Map<Long, Set<Long>> currentChoice = studentExam.getStudentChoice();
         if (currentChoice == null) {
             currentChoice = new HashMap<>();
         }
 
-        for (Map.Entry<Integer, Set<Integer>> entry : studentChoice.entrySet()) {
-            Integer questionId = entry.getKey();
-            Set<Integer> optionIds = entry.getValue();
+        for (Map.Entry<Long, Set<Long>> entry : studentChoice.entrySet()) {
+            Long questionId = entry.getKey();
+            Set<Long> optionIds = entry.getValue();
             if (optionIds == null || optionIds.isEmpty()) {
                 continue;
             }
 
-            Set<Integer> existing = currentChoice.get(questionId);
+            Set<Long> existing = currentChoice.get(questionId);
             if (isRemove) {
                 if (existing != null) {
                     existing.removeAll(optionIds);

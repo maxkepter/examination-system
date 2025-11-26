@@ -28,7 +28,7 @@ public class AuthInfo {
     public static final String[] AUTHORIES = new String[] { "ADMIN", "USER" };
 
     @Id
-    public Integer userId;
+    public Long userId;
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @MapsId
     @JoinColumn(name = "userID")

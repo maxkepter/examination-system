@@ -14,5 +14,5 @@ public class UserDTO {
     String firstName;
     String lastName;
     String email;
-    Integer userId;
+    Long userId;
 }

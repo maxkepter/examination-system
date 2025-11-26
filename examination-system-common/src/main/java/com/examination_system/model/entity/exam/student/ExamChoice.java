@@ -6,7 +6,7 @@ import jakarta.json.bind.annotation.JsonbProperty;
 
 public class ExamChoice {
     @JsonbProperty("studentExamId")
-    private int studentExamId;
+    private long studentExamId;
     @JsonbProperty("answers")
     private List<StudentChoice> studentChoices;
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.examination_system.model.entity.log.BanLog;
 
 @Repository
-public interface BanLogRepository extends JpaRepository<BanLog, Integer> {
+public interface BanLogRepository extends JpaRepository<BanLog, Long> {
 
 }

@@ -33,7 +33,7 @@ public class StudentExamService {
     DoExamService doExamService;
 
     @Transactional
-    public StudentExam getStudentExam(String userName, Integer examId) {
+    public StudentExam getStudentExam(String userName, Long examId) {
         User user = authInfoRepository.findByUserName(userName).getUser();
         StudentExam studentExam = null;
         try {
@@ -46,7 +46,7 @@ public class StudentExamService {
     }
 
     @Transactional
-    public StudentExam createStudentExam(User user, Integer examId) {
+    public StudentExam createStudentExam(User user, Long examId) {
 
         Exam exam = examRepository.findActiveByIdWithQuestions(examId)
                 .orElseThrow(() -> new RuntimeException("Exam not found with id: " + examId));
@@ -70,7 +70,7 @@ public class StudentExamService {
     }
 
     @Transactional(readOnly = true)
-    public StudentExam reloadStudentExam(User user, Integer examId) throws IllegalArgumentException {
+    public StudentExam reloadStudentExam(User user, Long examId) throws IllegalArgumentException {
         StudentExam studentExam = studentExamRepository
                 .findByUserAndExamAndStatus(user.getUserId(), examId, StudentExam.EXAM_DOING)
                 .orElseThrow(() -> new IllegalArgumentException("Student exam not found for examId: " + examId));
@@ -90,7 +90,7 @@ public class StudentExamService {
     }
 
     @Transactional(readOnly = true)
-    public StudentExam getStudentExamById(Integer studentExamId) {
+    public StudentExam getStudentExamById(Long studentExamId) {
         return studentExamRepository.findById(studentExamId)
                 .orElseThrow(() -> new RuntimeException("Student exam not found with id: " + studentExamId));
     }

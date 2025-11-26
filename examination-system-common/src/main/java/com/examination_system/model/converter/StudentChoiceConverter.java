@@ -10,18 +10,18 @@ import jakarta.persistence.Converter;
 import jakarta.ws.rs.core.GenericType;
 
 @Converter
-public class StudentChoiceConverter implements AttributeConverter<Map<Integer, Set<Integer>>, String> {
+public class StudentChoiceConverter implements AttributeConverter<Map<Long, Set<Long>>, String> {
 
     private static final Jsonb jsonb = JsonbBuilder.create();
 
     @Override
-    public String convertToDatabaseColumn(Map<Integer, Set<Integer>> attribute) {
+    public String convertToDatabaseColumn(Map<Long, Set<Long>> attribute) {
         return jsonb.toJson(attribute);
     }
 
     @Override
-    public Map<Integer, Set<Integer>> convertToEntityAttribute(String dbData) {
-        return jsonb.fromJson(dbData, new GenericType<Map<Integer, Set<Integer>>>() {
+    public Map<Long, Set<Long>> convertToEntityAttribute(String dbData) {
+        return jsonb.fromJson(dbData, new GenericType<Map<Long, Set<Long>>>() {
         }.getType());
     }
 }

@@ -37,7 +37,7 @@ public class ExamLog extends BaseLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer examLogId;
+    private Long examLogId;
 
     @ManyToOne
     @JoinColumn(name = "studentExamId", nullable = false)

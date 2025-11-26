@@ -1,4 +1,4 @@
-package com.examination_system.auth.controller;
+package com.examination_system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.examination_system.model.dto.common.AuthInfoDTO;
 import com.examination_system.model.dto.common.UserDTO;
-import com.examination_system.auth.service.UserService;
+import com.examination_system.service.UserService;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,14 +24,14 @@ public class UserController {
     UserService userService;
 
     @DeleteMapping("/{userId}")
-    public String deleteUser(@PathVariable Integer userId) {
+    public String deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
         return "Delete user successfully";
     }
 
     @PutMapping("/role")
     public String editUserRole(@RequestBody AuthInfoDTO authInfoDTO) {
-        Integer userId = authInfoDTO.getUserId();
+        Long userId = authInfoDTO.getUserId();
         Integer role = authInfoDTO.getRole();
         userService.editUserRole(userId, role);
         return "Update user role successfully";

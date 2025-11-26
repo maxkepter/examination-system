@@ -21,14 +21,14 @@ public class ExamLogService {
         examLogRepository.save(examLog);
     }
 
-    public void createExamLog(String infomation, Integer studentExamId) {
+    public void createExamLog(String infomation, Long studentExamId) {
         StudentExam studentExam = studentExamRepository.findActiveById(studentExamId)
                 .orElseThrow(() -> new RuntimeException("Student exam not found with id : " + studentExamId));
         ExamLog examLog = new ExamLog(infomation, studentExam);
         examLogRepository.save(examLog);
     }
 
-    public void createChoiceLog(Integer questionId, Integer optionId, boolean isRemove, StudentExam studentExam) {
+    public void createChoiceLog(Long questionId, Long optionId, boolean isRemove, StudentExam studentExam) {
         String information = (isRemove ? "Remove " : "Add ") + " option " + optionId + " in question " + questionId;
         createExamLog(information, studentExam);
     }

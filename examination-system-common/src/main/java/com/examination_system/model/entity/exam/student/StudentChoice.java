@@ -4,9 +4,9 @@ import jakarta.json.bind.annotation.JsonbProperty;
 
 public class StudentChoice {
     @JsonbProperty("questionId")
-    private int questionId;
+    private long questionId;
     @JsonbProperty("optionId")
-    private int optionId;
+    private long optionId;
     @JsonbProperty("isChecked")
     private int isChecked;
 }

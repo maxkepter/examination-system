@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 public class QuestionOption extends BaseEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Integer optionId;
+    private Long optionId;
 
     @Column(nullable = false)
     private boolean isCorrect;

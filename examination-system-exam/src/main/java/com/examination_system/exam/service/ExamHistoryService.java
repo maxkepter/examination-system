@@ -26,7 +26,7 @@ public class ExamHistoryService {
         return studentExamRepository.findAll().stream().map((e) -> examMapper.toDto(e)).toList();
     }
 
-    public List<StudentExamDTO> getByExam(Integer examId) {
+    public List<StudentExamDTO> getByExam(Long examId) {
         // check for exam existence
         Exam exam = examRepository.findActiveById(examId)
                 .orElseThrow(() -> new RuntimeException("Exam not found with id: " + examId));
@@ -37,11 +37,11 @@ public class ExamHistoryService {
         return studentExamRepository.findByUserName(username).stream().map((e) -> examMapper.toDto(e)).toList();
     }
 
-    public List<StudentExamDTO> getByUserId(Integer userId) {
+    public List<StudentExamDTO> getByUserId(Long userId) {
         return studentExamRepository.findByUser(userId).stream().map((e) -> examMapper.toDto(e)).toList();
     }
 
-    public StudentExamResponse getStudentExam(String userName, Integer studentExamId) {
+    public StudentExamResponse getStudentExam(String userName, Long studentExamId) {
         StudentExam studentExam = studentExamRepository.findById(studentExamId)
                 .orElseThrow(() -> new RuntimeException("Student exam not found with id: " + studentExamId));
         if (studentExam.getCreatedBy() == null || !studentExam.getCreatedBy().equals(userName)) {

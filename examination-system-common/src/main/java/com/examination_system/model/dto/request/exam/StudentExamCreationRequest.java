@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class StudentExamCreationRequest {
 
     @NotNull(message = "Exam ID is required")
-    private Integer examId;
+    private Long examId;
 }

@@ -23,8 +23,8 @@ import lombok.experimental.SuperBuilder;
 public class StudentExamResponse extends StudentExamDTO {
 
     List<QuestionResponse> examDetail;
-    Map<Integer, Set<Integer>> studentChoice;
-    Integer userId;
+    Map<Long, Set<Long>> studentChoice;
+    Long userId;
     String userName;
 
 }

@@ -34,7 +34,7 @@ public class BanLog extends BaseLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer logId;
+    private Long logId;
 
     @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime endTime;

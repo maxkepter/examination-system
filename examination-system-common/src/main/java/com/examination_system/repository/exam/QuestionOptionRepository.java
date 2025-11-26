@@ -6,5 +6,5 @@ import com.examination_system.core.repository.SoftDeleteRepository;
 import com.examination_system.model.entity.exam.QuestionOption;
 
 @Repository
-public interface QuestionOptionRepository extends SoftDeleteRepository<QuestionOption, Integer> {
+public interface QuestionOptionRepository extends SoftDeleteRepository<QuestionOption, Long> {
 }

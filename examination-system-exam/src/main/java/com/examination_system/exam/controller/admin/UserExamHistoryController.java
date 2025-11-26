@@ -25,12 +25,12 @@ public class UserExamHistoryController {
     }
 
     @GetMapping(path = "/exam/{examId}")
-    public ResponseEntity<List<StudentExamDTO>> getAllExamHistoryByExam(@PathVariable Integer examId) {
+    public ResponseEntity<List<StudentExamDTO>> getAllExamHistoryByExam(@PathVariable Long examId) {
         return ResponseEntity.ok(examHistoryService.getByExam(examId));
     }
 
     @GetMapping(path = "/student/{userId}")
-    public ResponseEntity<List<StudentExamDTO>> getAllExamHistoryByUser(@PathVariable Integer userId) {
+    public ResponseEntity<List<StudentExamDTO>> getAllExamHistoryByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(examHistoryService.getByUserId(userId));
     }
 }

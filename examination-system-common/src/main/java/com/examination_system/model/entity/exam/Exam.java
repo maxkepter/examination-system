@@ -42,7 +42,7 @@ public class Exam extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Integer examId;
+    private Long examId;
 
     @Column(nullable = false)
     private int duration;

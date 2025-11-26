@@ -11,16 +11,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface StudentExamRepository extends SoftDeleteRepository<StudentExam, Integer> {
+public interface StudentExamRepository extends SoftDeleteRepository<StudentExam, Long> {
 
     @Query("SELECT se FROM StudentExam se WHERE se.user.userId = :userId AND se.exam.examId = :examId AND se.examStatus = :examStatus AND se.isActive = true")
-    Optional<StudentExam> findByUserAndExamAndStatus(Integer userId, Integer examId, Integer examStatus);
+    Optional<StudentExam> findByUserAndExamAndStatus(Long userId, Long examId, Integer examStatus);
 
     @Query("SELECT se FROM StudentExam se WHERE se.user.userId = :userId  AND se.examStatus = :examStatus AND se.isActive = true")
-    Optional<StudentExam> findByUserAndStatus(Integer userId, Integer examStatus);
+    Optional<StudentExam> findByUserAndStatus(Long userId, Integer examStatus);
 
     @Query("SELECT se FROM StudentExam se WHERE se.user.userId= :userId")
-    List<StudentExam> findByUser(Integer userId);
+    List<StudentExam> findByUser(Long userId);
 
     @Query("SELECT se FROM StudentExam se WHERE se.user.authInfo.userName = :userName AND se.isActive = true")
     List<StudentExam> findByUserName(String userName);

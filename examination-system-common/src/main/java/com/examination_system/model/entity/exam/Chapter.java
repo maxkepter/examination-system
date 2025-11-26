@@ -31,7 +31,7 @@ public class Chapter extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Integer chapterId;
+    private Long chapterId;
 
     @Column(nullable = false, length = 100)
     private String chapterName;

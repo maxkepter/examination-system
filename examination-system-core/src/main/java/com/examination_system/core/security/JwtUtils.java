@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -19,36 +20,39 @@ import java.util.function.Function;
  * JWT Service - Technical component for JWT token generation and validation
  * This is a base service to be extended by application modules
  */
-public class JwtService {
-    private String SECRET_KEY = null;
+@Component
+public class JwtUtils {
+    private String secretKey = null;
 
     @Value("${jwt.secret:}")
     private String configuredSecret;
 
-    @Value("${jwt.expiration-minutes:5}")
+    @Value("${jwt.expiration-minutes:15}")
     private long expirationMinutes;
 
     @Value("${jwt.issuer:ses-app}")
     private String issuer;
 
+    // Generate a new secret key if not configured
     public String generateSecretKey() {
-        if (this.SECRET_KEY != null) {
-            return this.SECRET_KEY;
+        if (this.secretKey != null) {
+            return this.secretKey;
         }
         if (configuredSecret != null && !configuredSecret.isBlank()) {
-            this.SECRET_KEY = configuredSecret.trim();
-            return this.SECRET_KEY;
+            this.secretKey = configuredSecret.trim();
+            return this.secretKey;
         }
         try {
             KeyGenerator generator = KeyGenerator.getInstance("HmacSHA256");
-            SecretKey secretKey = generator.generateKey();
-            SECRET_KEY = Base64.getEncoder().encodeToString(secretKey.getEncoded());
-            return SECRET_KEY;
+            SecretKey generatedKey = generator.generateKey();
+            secretKey = Base64.getEncoder().encodeToString(generatedKey.getEncoded());
+            return secretKey;
         } catch (Exception e) {
             throw new IllegalStateException("Cannot generate JWT secret", e);
         }
     }
 
+    // Generate JWT token for a given username
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
         long expMillis = System.currentTimeMillis() + 1000L * 60L * expirationMinutes;
@@ -73,6 +77,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
+    // Extract username from JWT token
     public String extractUsername(String token) {
         return extracClaims(token, Claims::getSubject);
     }

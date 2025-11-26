@@ -6,10 +6,10 @@ import org.springframework.stereotype.Repository;
 import com.examination_system.model.entity.user.AuthInfo;
 
 @Repository
-public interface AuthInfoRepository extends JpaRepository<AuthInfo, Integer> {
+public interface AuthInfoRepository extends JpaRepository<AuthInfo, Long> {
     public AuthInfo findByUserName(String userName);
 
-    public AuthInfo findByUserId(Integer userId);
+    public AuthInfo findByUserId(Long userId);
 
     public boolean existsByUserName(String userName);
 }

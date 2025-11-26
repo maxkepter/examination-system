@@ -6,6 +6,6 @@ import com.examination_system.core.repository.SoftDeleteRepository;
 import com.examination_system.model.entity.exam.Chapter;
 
 @Repository
-public interface ChapterRepository extends SoftDeleteRepository<Chapter, Integer> {
+public interface ChapterRepository extends SoftDeleteRepository<Chapter, Long> {
 
 }

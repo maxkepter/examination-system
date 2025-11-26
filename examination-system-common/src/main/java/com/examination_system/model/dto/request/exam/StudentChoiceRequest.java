@@ -16,5 +16,5 @@ public class StudentChoiceRequest {
     @NotNull(message = "isRemove required !")
     boolean isRemove;
     @NotNull
-    Map<Integer, Set<Integer>> studentChoice;
+    Map<Long, Set<Long>> studentChoice;
 }

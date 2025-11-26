@@ -1,4 +1,4 @@
-package com.examination_system.auth.service;
+package com.examination_system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,20 +26,20 @@ public class UserService {
     @Autowired
     AuthInfoMapper authInfoMapper;
 
-    public void editUserRole(Integer userId, Integer role) {
+    public void editUserRole(Long userId, Integer role) {
         AuthInfo authInfo = authInfoRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         authInfo.setRole(role);
         authInfoRepository.save(authInfo);
     }
 
-    public void deleteUser(Integer userId) {
+    public void deleteUser(Long userId) {
         authInfoRepository.deleteById(userId);
         userRepository.deleteById(userId);
     }
 
     public void editUser(UserDTO userDTO) {
-        Integer userId = userDTO.getUserId();
+        Long userId = userDTO.getUserId();
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         user = userMapper.toEntity(userDTO);
         userRepository.save(user);

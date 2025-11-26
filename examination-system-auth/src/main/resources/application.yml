@@ -37,7 +37,7 @@ jwt:
   issuer: ses-base
   token-prefix: Bearer
   header: Authorization
-
+  refresh-token-duration-day: 30
 ---
 # Development profile overrides (H2)
 spring:

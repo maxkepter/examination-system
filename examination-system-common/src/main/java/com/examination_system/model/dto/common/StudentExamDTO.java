@@ -15,12 +15,12 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class StudentExamDTO {
-    Integer studentExamId;
+    Long studentExamId;
     Integer examStatus;
     String examStatusInfo;
     float score;
     LocalDateTime submitTime;
     LocalDateTime startTime;
-    Integer examId;
+    Long examId;
     String examName;
 }

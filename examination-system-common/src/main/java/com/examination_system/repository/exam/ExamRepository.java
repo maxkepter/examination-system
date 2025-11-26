@@ -10,8 +10,8 @@ import com.examination_system.model.entity.exam.Exam;
 import java.util.Optional;
 
 @Repository
-public interface ExamRepository extends SoftDeleteRepository<Exam, Integer> {
+public interface ExamRepository extends SoftDeleteRepository<Exam, Long> {
 
     @Query("SELECT e FROM Exam e LEFT JOIN FETCH e.questions WHERE e.examId = :examId AND e.isActive = true")
-    Optional<Exam> findActiveByIdWithQuestions(@Param("examId") Integer examId);
+    Optional<Exam> findActiveByIdWithQuestions(@Param("examId") Long examId);
 }

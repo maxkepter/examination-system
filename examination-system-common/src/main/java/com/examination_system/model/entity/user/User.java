@@ -25,7 +25,6 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "Users")
-@ToString
 @SQLDelete(sql = "update Users set isActive=0 where userId=?")
 public class User extends BaseEntity {
 
@@ -37,7 +36,7 @@ public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    private Long userId;
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
@@ -45,6 +44,8 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String email;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private AuthInfo authInfo;
 
 }

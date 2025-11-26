@@ -22,7 +22,7 @@ public class StudentExamController {
     private final StudentExamMapper studentExamMapper;
 
     @GetMapping("/{studentExamId}")
-    public ResponseEntity<StudentExamResponse> getStudentExam(@PathVariable Integer studentExamId) {
+    public ResponseEntity<StudentExamResponse> getStudentExam(@PathVariable Long studentExamId) {
         StudentExam studentExam = studentExamService.getStudentExamById(studentExamId);
         StudentExamResponse response = studentExamMapper.toResponse(studentExam);
         return ResponseEntity.ok(response);

@@ -6,6 +6,6 @@ import com.examination_system.core.repository.SoftDeleteRepository;
 import com.examination_system.model.entity.user.User;
 
 @Repository
-public interface UserRepository extends SoftDeleteRepository<User, Integer> {
+public interface UserRepository extends SoftDeleteRepository<User, Long> {
 
 }

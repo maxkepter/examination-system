@@ -65,7 +65,7 @@ public class StudentExam extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer studentExamId;
+    private Long studentExamId;
 
     @Column(nullable = false)
     private int examStatus;
@@ -87,7 +87,7 @@ public class StudentExam extends BaseEntity {
     @Lob
     @Column(nullable = false, columnDefinition = "NVARCHAR(MAX)")
     @Convert(converter = StudentChoiceConverter.class)
-    private Map<Integer, Set<Integer>> studentChoice;
+    private Map<Long, Set<Long>> studentChoice;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ExamId", nullable = false)

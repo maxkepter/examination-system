@@ -17,7 +17,7 @@ public class QuestionCreationRequest {
     @Range(min = 1, max = 3, message = "Difficulty must be between 1 and 3")
     int difficulty;
     @NotNull(message = "Chapter ID is required")
-    Integer chapterId;
+    Long chapterId;
     @NotNull(message = "Options are required")
     OptionCreationRequest[] options;
 }

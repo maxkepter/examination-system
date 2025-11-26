@@ -14,9 +14,9 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class QuestionDTO {
-    Integer questionId;
+    Long questionId;
     String questionContent;
     int difficulty;
-    Integer chapterId;
+    Long chapterId;
     List<QuestionOptionDTO> options;
 }

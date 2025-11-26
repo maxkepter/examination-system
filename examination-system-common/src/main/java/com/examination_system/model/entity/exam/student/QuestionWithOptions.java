@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Scope("prototype")
 public class QuestionWithOptions {
-    private int questionId;
+    private long questionId;
     private String content;
     private List<Option> options;
 

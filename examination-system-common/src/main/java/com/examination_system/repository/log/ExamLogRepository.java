@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import com.examination_system.model.entity.log.ExamLog;
 
 @Repository
-public interface ExamLogRepository extends JpaRepository<ExamLog, Integer> {
+public interface ExamLogRepository extends JpaRepository<ExamLog, Long> {
 
 }
