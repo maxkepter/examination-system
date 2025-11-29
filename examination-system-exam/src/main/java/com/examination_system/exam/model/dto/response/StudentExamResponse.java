@@ -1,10 +1,11 @@
-package com.examination_system.model.dto.request.exam;
+package com.examination_system.model.dto.response.exam;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import com.examination_system.model.dto.common.SubjectDTO;
+import com.examination_system.model.dto.common.StudentExamDTO;
 
-import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,9 +19,11 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class SubjectCreationRequest extends SubjectDTO {
-    List<String> majorCodes;
-    @NotEmpty(message = "Chapters are required")
-    List<String> chapters;
+public class StudentExamResponse extends StudentExamDTO {
+
+    List<QuestionResponse> examDetail;
+    Map<Long, Set<Long>> studentChoice;
+    Long userId;
+    String userName;
 
 }
