@@ -1,4 +1,4 @@
-package com.examination_system.model.dto.request.exam;
+package com.examination_system.exam.model.dto.request;
 
 import org.hibernate.validator.constraints.Range;
 

@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.examination_system.model.dto.common.StudentExamDTO;
-import com.examination_system.model.dto.response.exam.StudentExamResponse;
+import com.examination_system.exam.model.dto.common.StudentExamDTO;
+import com.examination_system.exam.model.dto.response.StudentExamResponse;
+import com.examination_system.exam.model.mapper.StudentExamMapper;
 import com.examination_system.model.entity.exam.Exam;
 import com.examination_system.model.entity.exam.student.StudentExam;
-import com.examination_system.model.mapper.exam.StudentExamMapper;
 import com.examination_system.repository.exam.ExamRepository;
 import com.examination_system.repository.exam.student.StudentExamRepository;
 
@@ -44,7 +44,10 @@ public class ExamHistoryService {
     public StudentExamResponse getStudentExam(String userName, Long studentExamId) {
         StudentExam studentExam = studentExamRepository.findById(studentExamId)
                 .orElseThrow(() -> new RuntimeException("Student exam not found with id: " + studentExamId));
-        if (studentExam.getCreatedBy() == null || !studentExam.getCreatedBy().equals(userName)) {
+        String ownerUserName = studentExam.getUser() != null && studentExam.getUser().getAuthInfo() != null
+                ? studentExam.getUser().getAuthInfo().getUserName()
+                : null;
+        if (ownerUserName == null || !ownerUserName.equals(userName)) {
             throw new RuntimeException("You do not have permission to view this student exam");
         }
         return examMapper.toResponse(studentExam);

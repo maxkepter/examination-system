@@ -1,4 +1,4 @@
-package com.examination_system.model.mapper.exam;
+package com.examination_system.model.mapper;
 
 import org.mapstruct.Mapper;
 

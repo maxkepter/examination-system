@@ -31,13 +31,13 @@ public class SubjectService {
         return subject;
     }
 
-    public  Subject addSubject(Subject subject) {
+    public Subject addSubject(Subject subject) {
         List<Major> majors = subject.getMajors();
         if (majors != null) {
-       long numMajorExsit=     majorRepository.countByIdIn(subject.getMajors().stream().map((m)->m.getMajorCode()).toList());
-        if (numMajorExsit!=subject.getMajors().size()) {
-            throw new IllegalArgumentException("One or more majors do not exist");
-        }
+            long numMajorExsit = majorRepository.countByIdIn(subject.getMajors().stream().map((m) -> m.getMajorCode()).toList());
+            if (numMajorExsit != subject.getMajors().size()) {
+                throw new IllegalArgumentException("One or more majors do not exist");
+            }
         }
 
         // chapter is create new along with subject, so no need to check existence
@@ -84,7 +84,7 @@ public class SubjectService {
         return subjectRepository.save(existingSubject);
     }
 
-    public  List<Subject> getSubjectsByMajor(String majorCode) {
+    public List<Subject> getSubjectsByMajor(String majorCode) {
         return subjectRepository.findByMajorCode(majorCode);
     }
 }

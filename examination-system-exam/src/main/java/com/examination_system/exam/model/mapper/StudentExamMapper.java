@@ -1,13 +1,14 @@
-package com.examination_system.model.mapper.exam;
+package com.examination_system.exam.model.mapper;
 
 import java.util.List;
 
+import com.examination_system.model.entity.exam.student.StudentExam;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.examination_system.model.dto.common.StudentExamDTO;
-import com.examination_system.model.dto.response.exam.StudentExamResponse;
-import com.examination_system.model.entity.exam.student.StudentExam;
+import com.examination_system.exam.model.dto.common.StudentExamDTO;
+import com.examination_system.exam.model.dto.response.StudentExamResponse;
+
 
 @Mapper(componentModel = "spring")
 public interface StudentExamMapper {

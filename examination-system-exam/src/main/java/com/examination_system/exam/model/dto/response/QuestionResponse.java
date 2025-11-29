@@ -1,4 +1,4 @@
-package com.examination_system.model.dto.response.exam;
+package com.examination_system.exam.model.dto.response;
 
 import java.util.List;
 

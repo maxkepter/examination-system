@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.examination_system.model.dto.common.StudentExamDTO;
-import com.examination_system.model.dto.response.exam.StudentExamResponse;
+import com.examination_system.exam.model.dto.common.StudentExamDTO;
+import com.examination_system.exam.model.dto.response.StudentExamResponse;
 import com.examination_system.exam.service.ExamHistoryService;
 
 import lombok.RequiredArgsConstructor;

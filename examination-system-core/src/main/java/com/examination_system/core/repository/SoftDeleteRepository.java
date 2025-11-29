@@ -18,4 +18,7 @@ public interface SoftDeleteRepository<T, ID> extends JpaRepository<T, ID> {
 
     @Query("SELECT e FROM #{#entityName} e WHERE e.id = :id AND e.isActive = true")
     Optional<T> findActiveById(ID id);
+
+    @Query("SELECT COUNT(e) FROM #{#entityName} e WHERE e.id IN :ids AND e.isActive = true")
+    long countByIdIn(Iterable<ID> ids);
 }

@@ -1,5 +1,15 @@
 package com.examination_system.controller;
 
+import com.examination_system.core.security.JwtUtils;
+import com.examination_system.model.dto.request.LoginRequest;
+import com.examination_system.model.dto.request.RefreshTokenRequest;
+import com.examination_system.model.dto.request.RegisterRequest;
+import com.examination_system.model.dto.response.AuthRespone;
+import com.examination_system.model.entity.token.RefreshToken;
+import com.examination_system.model.entity.user.AuthInfo;
+import com.examination_system.model.entity.user.User;
+import com.examination_system.repository.user.AuthInfoRepository;
+import com.examination_system.service.RefreshTokenService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,17 +24,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.examination_system.model.dto.request.RefreshTokenRequest;
-import com.examination_system.model.dto.request.auth.LoginRequest;
-import com.examination_system.model.dto.request.auth.RegisterRequest;
-import com.examination_system.model.dto.response.AuthRespone;
-import com.examination_system.model.entity.token.RefreshToken;
-import com.examination_system.model.entity.user.AuthInfo;
-import com.examination_system.model.entity.user.User;
-import com.examination_system.repository.user.AuthInfoRepository;
-import com.examination_system.service.RefreshTokenService;
-import com.examination_system.core.security.JwtUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -71,7 +70,9 @@ public class AuthController {
 
             SecurityContextHolder.getContext().setAuthentication(auth);
 
-            String accessToken = jwtService.generateToken(request.getUsername());
+            String role = auth.getAuthorities().stream().findFirst().get().getAuthority();
+
+            String accessToken = jwtService.generateToken(request.getUsername(), role);
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(request.getUsername());
 
             AuthRespone authRespone = AuthRespone.builder()
@@ -86,6 +87,7 @@ public class AuthController {
         }
     }
 
+    // provide new access token using refresh token
     @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest request) {
         String token = request.getRefreshToken();
@@ -94,14 +96,14 @@ public class AuthController {
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getAuthInfo)
                 .map(authInfo -> {
-                    String newAccessToken = jwtService.generateToken(authInfo.getUserName());
+                    String newAccessToken = jwtService.generateToken(authInfo.getUserName(),
+                            AuthInfo.AUTHORIES[authInfo.getRole()]);
                     AuthRespone authRespone = AuthRespone.builder()
                             .accessToken(newAccessToken)
                             .refreshToken(token)
                             .build();
                     return ResponseEntity.ok(authRespone);
                 }).orElseThrow(() -> new RuntimeException("Invalid refresh token"));
-
     }
 
     @PostMapping("/logout")

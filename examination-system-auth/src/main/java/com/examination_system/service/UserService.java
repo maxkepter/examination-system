@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import com.examination_system.model.dto.common.UserDTO;
 import com.examination_system.model.entity.user.AuthInfo;
 import com.examination_system.model.entity.user.User;
-import com.examination_system.model.mapper.exam.AuthInfoMapper;
-import com.examination_system.model.mapper.exam.UserMapper;
+import com.examination_system.model.mapper.AuthInfoMapper;
+import com.examination_system.model.mapper.UserMapper;
 import com.examination_system.repository.user.AuthInfoRepository;
 import com.examination_system.repository.user.UserRepository;
 

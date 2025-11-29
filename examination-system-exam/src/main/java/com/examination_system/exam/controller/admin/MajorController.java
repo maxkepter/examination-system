@@ -2,18 +2,12 @@ package com.examination_system.exam.controller.admin;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.examination_system.exam.model.dto.common.MajorDto;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import com.examination_system.model.dto.common.MajorDTO;
 import com.examination_system.model.entity.exam.Major;
-import com.examination_system.model.mapper.exam.MajorMapper;
+import com.examination_system.exam.model.mapper.MajorMapper;
 import com.examination_system.repository.exam.MajorRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,20 +20,21 @@ public class MajorController {
     private final MajorMapper majorMapper;
 
     @PostMapping
-    public void addMajor(@RequestBody MajorDTO request) {
+    public ResponseEntity<?> addMajor(@RequestBody MajorDto request) {
         System.out.println("Adding major: " + request);
-        majorRepository.save(majorMapper.toEntity(request));
+      Major major=   majorRepository.save(majorMapper.toEntity(request));
+        return  ResponseEntity.ok(majorMapper.toDto(major));
     }
 
     @GetMapping
-    public List<MajorDTO> getAllMajors() {
+    public List<MajorDto> getAllMajors() {
         List<Major> majors = majorRepository.findAllActive();
-        List<MajorDTO> majorDTOs = majors.stream().map(major -> majorMapper.toDto(major)).toList();
-        return majorDTOs;
+        List<MajorDto> majorDtos = majors.stream().map(major -> majorMapper.toDto(major)).toList();
+        return majorDtos;
     }
 
     @GetMapping("/{majorCode}")
-    public MajorDTO getMajorByCode(@PathVariable String majorCode) {
+    public MajorDto getMajorByCode(@PathVariable String majorCode) {
         System.out.println("Fetching major with code: " + majorCode);
         Major major = majorRepository.findActiveById(majorCode)
                 .orElseThrow(() -> new IllegalArgumentException("Major not found with code: " + majorCode));
@@ -47,7 +42,7 @@ public class MajorController {
     }
 
     @PutMapping("/{majorCode}")
-    public void updateMajor(@PathVariable String majorCode, @RequestBody MajorDTO request) {
+    public void updateMajor(@PathVariable String majorCode, @RequestBody MajorDto request) {
         System.out.println("Updating major: " + request);
         Major major = majorMapper.toEntity(request);
         major.setMajorCode(majorCode);
@@ -58,7 +53,6 @@ public class MajorController {
 
     @DeleteMapping("/{majorCode}")
     public void deleteMajor(@PathVariable String majorCode) {
-        System.out.println(majorCode);
         majorRepository.deleteById(majorCode);
     }
 

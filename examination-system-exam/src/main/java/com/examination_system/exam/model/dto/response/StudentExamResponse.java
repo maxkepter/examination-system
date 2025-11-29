@@ -1,10 +1,10 @@
-package com.examination_system.model.dto.response.exam;
+package com.examination_system.exam.model.dto.response;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.examination_system.model.dto.common.StudentExamDTO;
+import com.examination_system.exam.model.dto.common.StudentExamDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

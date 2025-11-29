@@ -53,13 +53,14 @@ public class JwtUtils {
     }
 
     // Generate JWT token for a given username
-    public String generateToken(String username) {
+    public String generateToken(String username,String role) {
         Map<String, Object> claims = new HashMap<>();
         long expMillis = System.currentTimeMillis() + 1000L * 60L * expirationMinutes;
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuer(issuer)
                 .setSubject(username)
+                .claim("role", role)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(expMillis))
                 .signWith(getKey(), SignatureAlgorithm.HS256)

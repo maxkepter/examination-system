@@ -1,4 +1,4 @@
-package com.examination_system.model.dto.common;
+package com.examination_system.exam.model.dto.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class SubjectDTO {
+public class SubjectDto {
 
     String subjectCode;
     String subjectName;

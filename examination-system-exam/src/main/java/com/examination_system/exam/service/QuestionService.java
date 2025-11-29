@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.examination_system.model.dto.common.QuestionDTO;
+import com.examination_system.exam.model.dto.common.QuestionDTO;
 import com.examination_system.model.entity.exam.Chapter;
 import com.examination_system.model.entity.exam.Question;
 import com.examination_system.model.entity.exam.QuestionOption;
-import com.examination_system.model.mapper.exam.QuestionMapper;
-import com.examination_system.model.mapper.exam.QuestionOptionMapper;
+import com.examination_system.exam.model.mapper.QuestionMapper;
+import com.examination_system.exam.model.mapper.QuestionOptionMapper;
 import com.examination_system.repository.exam.QuestionRepository;
 import com.examination_system.repository.exam.QuestionOptionRepository;
 

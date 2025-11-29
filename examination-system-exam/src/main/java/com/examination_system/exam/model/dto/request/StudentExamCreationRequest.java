@@ -1,4 +1,4 @@
-package com.examination_system.model.dto.request.exam;
+package com.examination_system.exam.model.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

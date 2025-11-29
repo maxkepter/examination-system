@@ -59,4 +59,13 @@ public class JwtFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        if ("OPTIONS".equals(request.getMethod()))
+            return true; // allow preflight requests
+        String context = request.getContextPath(); // /api
+        String uri = request.getRequestURI(); // /api/auth/login ...
+        String relative = uri.substring(context.length()); // /auth/login
+        return relative.startsWith("/auth/") || relative.startsWith("/h2-console/");
+    }
 }

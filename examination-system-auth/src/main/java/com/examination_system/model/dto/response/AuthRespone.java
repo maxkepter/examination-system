@@ -15,6 +15,5 @@ import lombok.experimental.FieldDefaults;
 public class AuthRespone {
     String accessToken;
     String refreshToken;
-    static String tokenType = "Bearer";
     Long expiresIn;
 }

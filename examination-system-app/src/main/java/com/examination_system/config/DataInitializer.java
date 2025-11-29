@@ -111,7 +111,7 @@ public class DataInitializer implements CommandLineRunner {
                                 .userName("johndoe")
                                 .password(passwordEncoder.encode(SAMPLE_PASSWORD)) // In a real application, passwords
                                 // should be hashed
-                                .role(AuthInfo.ROLE_USER)
+                                .role(AuthInfo.ROLE_ADMIN)
                                 .user(examCreator)
                                 .build();
 

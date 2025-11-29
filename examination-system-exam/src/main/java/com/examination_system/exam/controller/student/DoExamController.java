@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.examination_system.model.dto.common.ExamLogDTO;
-import com.examination_system.model.dto.request.exam.StudentChoiceRequest;
-import com.examination_system.model.dto.request.exam.StudentExamCreationRequest;
-import com.examination_system.model.dto.response.exam.StudentExamResponse;
+import com.examination_system.exam.model.dto.common.ExamLogDTO;
+import com.examination_system.exam.model.dto.request.StudentChoiceRequest;
+import com.examination_system.exam.model.dto.request.StudentExamCreationRequest;
+import com.examination_system.exam.model.dto.response.StudentExamResponse;
 import com.examination_system.model.entity.exam.student.StudentExam;
-import com.examination_system.model.mapper.exam.StudentExamMapper;
+import com.examination_system.exam.model.mapper.StudentExamMapper;
 import com.examination_system.exam.service.DoExamService;
 import com.examination_system.exam.service.StudentExamService;
 import com.examination_system.exam.service.ExamLogService;
