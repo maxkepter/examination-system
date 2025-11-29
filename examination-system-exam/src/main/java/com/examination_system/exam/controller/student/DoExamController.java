@@ -20,12 +20,19 @@ import com.examination_system.exam.service.DoExamService;
 import com.examination_system.exam.service.StudentExamService;
 import com.examination_system.exam.service.ExamLogService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/student/exam/do")
 @RequiredArgsConstructor
+@Tag(name = "Làm bài thi", description = "API dành cho học viên làm bài thi")
 public class DoExamController {
     private final StudentExamService studentExamService;
     private final ExamLogService examLogService;
@@ -33,6 +40,14 @@ public class DoExamController {
     private final DoExamService doExamService;
 
     @PostMapping
+    @Operation(summary = "Khởi tạo bài thi", description = "Tạo hoặc tiếp tục bài thi của học viên")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Thành công",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = StudentExamResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Không tìm thấy bài thi", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Yêu cầu không hợp lệ", content = @Content)
+    })
     public ResponseEntity<StudentExamResponse> createStudentExam(
             @Valid @RequestBody StudentExamCreationRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,6 +67,12 @@ public class DoExamController {
     }
 
     @PostMapping("/log")
+    @Operation(summary = "Ghi nhật ký bài thi", description = "Lưu log liên quan đến bài thi của học viên")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Tạo log thành công", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Không tìm thấy bài thi", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Yêu cầu không hợp lệ", content = @Content)
+    })
     public ResponseEntity<String> logStudentExam(@Valid @RequestBody ExamLogDTO examLog) {
         try {
             examLogService.createExamLog(examLog.getInfomarion(), examLog.getStudentExamId());
@@ -66,6 +87,14 @@ public class DoExamController {
     }
 
     @PostMapping("/submit/{studentExamId}")
+    @Operation(summary = "Nộp bài thi", description = "Nộp và chấm điểm bài thi của học viên")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Nộp thành công",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(type = "number", format = "float"))),
+            @ApiResponse(responseCode = "404", description = "Không tìm thấy bài thi", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Yêu cầu không hợp lệ", content = @Content)
+    })
     public ResponseEntity<Float> submitExam(@PathVariable Long studentExamId) {
         try {
             StudentExam studentExam = doExamService.submit(studentExamId);
@@ -80,6 +109,12 @@ public class DoExamController {
     }
 
     @PostMapping("/choice/{studentExamId}")
+    @Operation(summary = "Lưu lựa chọn", description = "Lưu lựa chọn đáp án của học viên trong bài thi")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lưu thành công", content = @Content),
+        @ApiResponse(responseCode = "404", description = "Không tìm thấy bài thi", content = @Content),
+        @ApiResponse(responseCode = "400", description = "Yêu cầu không hợp lệ", content = @Content)
+    })
     public ResponseEntity<String> saveChoice(@PathVariable Long studentExamId,
             @RequestBody StudentChoiceRequest request) {
         try {
