@@ -6,6 +6,8 @@ import java.util.Set;
 
 import com.examination_system.exam.model.dto.common.StudentExamDTO;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +23,11 @@ import lombok.experimental.SuperBuilder;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class StudentExamResponse extends StudentExamDTO {
 
+    @NotNull
+    @Size(min = 1)
     List<QuestionResponse> examDetail;
+
+    @NotNull
     Map<Long, Set<Long>> studentChoice;
     Long userId;
     String userName;

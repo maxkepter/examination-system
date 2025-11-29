@@ -1,5 +1,7 @@
 package com.examination_system.exam.controller.admin;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,9 +19,9 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @PostMapping()
-    public String createQuestion(@RequestBody QuestionDTO questionDTO) {
+    public ResponseEntity<?> createQuestion(@RequestBody QuestionDTO questionDTO) {
         questionService.createQuestion(questionDTO);
-        return "Question created successfully";
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 }

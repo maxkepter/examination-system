@@ -3,6 +3,7 @@ package com.examination_system.exam.controller.student;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,14 +27,26 @@ public class UserExamController {
     public ResponseEntity<List<StudentExamDTO>> getExamHistory() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
-        return ResponseEntity.ok(examHistoryService.getByUsername(username));
+        List<StudentExamDTO> list = examHistoryService.getByUsername(username);
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping(path = "/view/{studentExamId}")
     public ResponseEntity<StudentExamResponse> getStudentExam(@PathVariable Long studentExamId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        return ResponseEntity.ok(examHistoryService.getStudentExam(username, studentExamId));
+        try {
+            StudentExamResponse resp = examHistoryService.getStudentExam(username, studentExamId);
+            return ResponseEntity.ok(resp);
+        } catch (RuntimeException ex) {
+            String msg = ex.getMessage() != null ? ex.getMessage().toLowerCase() : "";
+            if (msg.contains("not found")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            if (msg.contains("permission")) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 }

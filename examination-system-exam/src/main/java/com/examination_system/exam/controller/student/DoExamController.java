@@ -1,6 +1,7 @@
 package com.examination_system.exam.controller.student;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,29 +37,61 @@ public class DoExamController {
             @Valid @RequestBody StudentExamCreationRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
-        StudentExam studentExam = studentExamService.getStudentExam(username, request.getExamId());
-        StudentExamResponse response = studentExamMapper.toResponse(studentExam);
-        return ResponseEntity.ok(response);
+        try {
+            StudentExam studentExam = studentExamService.getStudentExam(username, request.getExamId());
+            StudentExamResponse response = studentExamMapper.toResponse(studentExam);
+            // If newly created, ideally 201; service mixes reload/create, so return 200
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException ex) {
+            String msg = ex.getMessage() != null ? ex.getMessage().toLowerCase() : "";
+            if (msg.contains("not found")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @PostMapping("/log")
     public ResponseEntity<String> logStudentExam(@Valid @RequestBody ExamLogDTO examLog) {
-        examLogService.createExamLog(examLog.getInfomarion(), examLog.getStudentExamId());
-        return ResponseEntity.ok("Log create sucessfully !");
+        try {
+            examLogService.createExamLog(examLog.getInfomarion(), examLog.getStudentExamId());
+            return ResponseEntity.status(HttpStatus.CREATED).body("Log create sucessfully !");
+        } catch (RuntimeException ex) {
+            String msg = ex.getMessage() != null ? ex.getMessage().toLowerCase() : "";
+            if (msg.contains("not found")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @PostMapping("/submit/{studentExamId}")
     public ResponseEntity<Float> submitExam(@PathVariable Long studentExamId) {
-        StudentExam studentExam = doExamService.submit(studentExamId);
-        return ResponseEntity.ok(studentExam.getScore());
+        try {
+            StudentExam studentExam = doExamService.submit(studentExamId);
+            return ResponseEntity.ok(studentExam.getScore());
+        } catch (RuntimeException ex) {
+            String msg = ex.getMessage() != null ? ex.getMessage().toLowerCase() : "";
+            if (msg.contains("not found")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @PostMapping("/choice/{studentExamId}")
     public ResponseEntity<String> saveChoice(@PathVariable Long studentExamId,
             @RequestBody StudentChoiceRequest request) {
-        doExamService.saveStudentChoice(studentExamId, request.getStudentChoice(), request.isRemove());
-        return ResponseEntity.ok("Saved");
+        try {
+            doExamService.saveStudentChoice(studentExamId, request.getStudentChoice(), request.isRemove());
+            return ResponseEntity.ok("Saved");
+        } catch (RuntimeException ex) {
+            String msg = ex.getMessage() != null ? ex.getMessage().toLowerCase() : "";
+            if (msg.contains("not found")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
 }

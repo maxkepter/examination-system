@@ -10,6 +10,9 @@ import com.examination_system.model.entity.user.AuthInfo;
 import com.examination_system.model.entity.user.User;
 import com.examination_system.repository.user.AuthInfoRepository;
 import com.examination_system.service.RefreshTokenService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,7 +43,7 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequest request) {
         if (authInfoRepository.existsByUserName(request.getUsername())) {
             return ResponseEntity.badRequest().body("Username already exists");
         }
@@ -58,11 +61,11 @@ public class AuthController {
                 .build();
         authInfoRepository.save(authInfo);
 
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
         try {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -89,21 +92,26 @@ public class AuthController {
 
     // provide new access token using refresh token
     @PostMapping("/refresh")
-    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest request) {
+    public ResponseEntity<?> refreshToken(@Valid @RequestBody RefreshTokenRequest request) {
         String token = request.getRefreshToken();
-        return refreshTokenService
-                .findByToken(token)
-                .map(refreshTokenService::verifyExpiration)
-                .map(RefreshToken::getAuthInfo)
-                .map(authInfo -> {
-                    String newAccessToken = jwtService.generateToken(authInfo.getUserName(),
-                            AuthInfo.AUTHORIES[authInfo.getRole()]);
-                    AuthRespone authRespone = AuthRespone.builder()
-                            .accessToken(newAccessToken)
-                            .refreshToken(token)
-                            .build();
-                    return ResponseEntity.ok(authRespone);
-                }).orElseThrow(() -> new RuntimeException("Invalid refresh token"));
+        try {
+            return refreshTokenService
+                    .findByToken(token)
+                    .map(refreshTokenService::verifyExpiration)
+                    .map(RefreshToken::getAuthInfo)
+                    .map(authInfo -> {
+                        String newAccessToken = jwtService.generateToken(authInfo.getUserName(),
+                                AuthInfo.AUTHORIES[authInfo.getRole()]);
+                        AuthRespone authRespone = AuthRespone.builder()
+                                .accessToken(newAccessToken)
+                                .refreshToken(token)
+                                .build();
+                        return ResponseEntity.ok(authRespone);
+                    })
+                    .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid refresh token");
+        }
     }
 
     @PostMapping("/logout")

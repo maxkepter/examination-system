@@ -26,7 +26,11 @@ public class UserExamHistoryController {
 
     @GetMapping(path = "/exam/{examId}")
     public ResponseEntity<List<StudentExamDTO>> getAllExamHistoryByExam(@PathVariable Long examId) {
+     try {
         return ResponseEntity.ok(examHistoryService.getByExam(examId));
+     } catch (IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().build();
+     }
     }
 
     @GetMapping(path = "/student/{userId}")

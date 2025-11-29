@@ -29,7 +29,7 @@ public class ExamHistoryService {
     public List<StudentExamDTO> getByExam(Long examId) {
         // check for exam existence
         Exam exam = examRepository.findActiveById(examId)
-                .orElseThrow(() -> new RuntimeException("Exam not found with id: " + examId));
+                .orElseThrow(() -> new IllegalArgumentException("Exam not found with id: " + examId));
         return studentExamRepository.findByExam(exam).stream().map((e) -> examMapper.toDto(e)).toList();
     }
 
@@ -38,6 +38,7 @@ public class ExamHistoryService {
     }
 
     public List<StudentExamDTO> getByUserId(Long userId) {
+
         return studentExamRepository.findByUser(userId).stream().map((e) -> examMapper.toDto(e)).toList();
     }
 
