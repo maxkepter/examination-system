@@ -2,6 +2,7 @@ package com.examination_system.exam.controller.student;
 
 import java.util.List;
 
+import com.examination_system.exam.model.dto.common.StudentExamDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.examination_system.exam.model.dto.common.StudentExamDTO;
 import com.examination_system.exam.model.dto.response.StudentExamResponse;
 import com.examination_system.exam.service.ExamHistoryService;
 
@@ -36,12 +36,12 @@ public class UserExamController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Thành công",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = StudentExamDTO.class))))
+                            array = @ArraySchema(schema = @Schema(implementation = StudentExamDto.class))))
     })
-    public ResponseEntity<List<StudentExamDTO>> getExamHistory() {
+    public ResponseEntity<List<StudentExamDto>> getExamHistory() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        List<StudentExamDTO> list = examHistoryService.getByUsername(username);
+        List<StudentExamDto> list = examHistoryService.getByUsername(username);
         return ResponseEntity.ok(list);
     }
 

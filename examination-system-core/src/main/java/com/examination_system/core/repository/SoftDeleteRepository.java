@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Base repository interface for soft-delete functionality
@@ -17,8 +18,8 @@ public interface SoftDeleteRepository<T, ID> extends JpaRepository<T, ID> {
     List<T> findAllActive();
 
     @Query("SELECT e FROM #{#entityName} e WHERE e.id = :id AND e.isActive = true")
-    Optional<T> findActiveById(ID id);
+    Optional<T> findActiveById(@Param("id")ID id);
 
     @Query("SELECT COUNT(e) FROM #{#entityName} e WHERE e.id IN :ids AND e.isActive = true")
-    long countByIdIn(Iterable<ID> ids);
+    long countByIdIn(@Param("ids")Iterable<ID> ids);
 }

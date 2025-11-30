@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class ExamLogDTO {
+public class ExamLogDto {
     @NotBlank(message = "Infomartion can not blank !")
     String infomarion;
     @NotNull(message = "Student Exam Id is required !")

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.examination_system.exam.model.dto.common.ExamLogDTO;
+import com.examination_system.exam.model.dto.common.ExamLogDto;
 import com.examination_system.exam.model.dto.request.StudentChoiceRequest;
 import com.examination_system.exam.model.dto.request.StudentExamCreationRequest;
 import com.examination_system.exam.model.dto.response.StudentExamResponse;
@@ -73,7 +73,7 @@ public class DoExamController {
             @ApiResponse(responseCode = "404", description = "Không tìm thấy bài thi", content = @Content),
             @ApiResponse(responseCode = "400", description = "Yêu cầu không hợp lệ", content = @Content)
     })
-    public ResponseEntity<String> logStudentExam(@Valid @RequestBody ExamLogDTO examLog) {
+    public ResponseEntity<String> logStudentExam(@Valid @RequestBody ExamLogDto examLog) {
         try {
             examLogService.createExamLog(examLog.getInfomarion(), examLog.getStudentExamId());
             return ResponseEntity.status(HttpStatus.CREATED).body("Log create sucessfully !");

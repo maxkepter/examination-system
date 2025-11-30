@@ -1,9 +1,5 @@
 package com.examination_system.common.model.entity.exam;
 
-import org.hibernate.annotations.SQLDelete;
-
-import com.examination_system.core.model.entity.BaseEntity;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,8 +21,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "QuestionOption")
-@SQLDelete(sql = "update QuestionOption set isActive=0 where optionId=?")
-public class QuestionOption extends BaseEntity {
+public class QuestionOption {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long optionId;

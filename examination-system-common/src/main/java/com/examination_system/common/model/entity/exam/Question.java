@@ -3,6 +3,8 @@ package com.examination_system.common.model.entity.exam;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.SQLDelete;
 
 import com.examination_system.core.model.entity.BaseEntity;
@@ -23,6 +25,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.data.repository.cdi.Eager;
 
 @Data
 @NoArgsConstructor

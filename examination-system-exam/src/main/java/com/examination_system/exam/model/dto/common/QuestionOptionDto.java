@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class QuestionOptionDTO {
+public class QuestionOptionDto {
     private Long optionId; // có thể null khi tạo mới
     @NotBlank
     @Size(max = 2000)

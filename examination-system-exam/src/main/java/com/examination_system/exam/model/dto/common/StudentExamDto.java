@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class StudentExamDTO {
+public class StudentExamDto {
     Long studentExamId;
     @NotNull
     Integer examStatus;

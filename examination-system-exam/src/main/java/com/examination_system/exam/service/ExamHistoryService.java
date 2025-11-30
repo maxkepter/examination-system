@@ -2,10 +2,10 @@ package com.examination_system.exam.service;
 
 import java.util.List;
 
+import com.examination_system.exam.model.dto.common.StudentExamDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.examination_system.exam.model.dto.common.StudentExamDTO;
 import com.examination_system.exam.model.dto.response.StudentExamResponse;
 import com.examination_system.exam.model.mapper.StudentExamMapper;
 import com.examination_system.common.model.entity.exam.Exam;
@@ -22,22 +22,22 @@ public class ExamHistoryService {
     @Autowired
     ExamRepository examRepository;
 
-    public List<StudentExamDTO> getAll() {
+    public List<StudentExamDto> getAll() {
         return studentExamRepository.findAll().stream().map((e) -> examMapper.toDto(e)).toList();
     }
 
-    public List<StudentExamDTO> getByExam(Long examId) {
+    public List<StudentExamDto> getByExam(Long examId) {
         // check for exam existence
         Exam exam = examRepository.findActiveById(examId)
                 .orElseThrow(() -> new IllegalArgumentException("Exam not found with id: " + examId));
         return studentExamRepository.findByExam(exam).stream().map((e) -> examMapper.toDto(e)).toList();
     }
 
-    public List<StudentExamDTO> getByUsername(String username) {
+    public List<StudentExamDto> getByUsername(String username) {
         return studentExamRepository.findByUserName(username).stream().map((e) -> examMapper.toDto(e)).toList();
     }
 
-    public List<StudentExamDTO> getByUserId(Long userId) {
+    public List<StudentExamDto> getByUserId(Long userId) {
 
         return studentExamRepository.findByUser(userId).stream().map((e) -> examMapper.toDto(e)).toList();
     }

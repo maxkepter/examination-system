@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.examination_system.exam.model.dto.common.StudentExamDTO;
+import com.examination_system.exam.model.dto.common.StudentExamDto;
 import com.examination_system.exam.service.ExamHistoryService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,9 +32,9 @@ public class UserExamHistoryController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Thành công",
             content = @Content(mediaType = "application/json",
-                array = @ArraySchema(schema = @Schema(implementation = StudentExamDTO.class))))
+                array = @ArraySchema(schema = @Schema(implementation = StudentExamDto.class))))
     })
-    public ResponseEntity<List<StudentExamDTO>> getAllExamHistory() {
+    public ResponseEntity<List<StudentExamDto>> getAllExamHistory() {
         return ResponseEntity.ok(examHistoryService.getAll());
     }
 
@@ -43,10 +43,10 @@ public class UserExamHistoryController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Thành công",
             content = @Content(mediaType = "application/json",
-                array = @ArraySchema(schema = @Schema(implementation = StudentExamDTO.class)))),
+                array = @ArraySchema(schema = @Schema(implementation = StudentExamDto.class)))),
         @ApiResponse(responseCode = "400", description = "Kỳ thi không hợp lệ hoặc không tồn tại", content = @Content)
     })
-    public ResponseEntity<List<StudentExamDTO>> getAllExamHistoryByExam(@PathVariable Long examId) {
+    public ResponseEntity<List<StudentExamDto>> getAllExamHistoryByExam(@PathVariable Long examId) {
      try {
         return ResponseEntity.ok(examHistoryService.getByExam(examId));
      } catch (IllegalArgumentException ex) {
@@ -59,9 +59,9 @@ public class UserExamHistoryController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Thành công",
             content = @Content(mediaType = "application/json",
-                array = @ArraySchema(schema = @Schema(implementation = StudentExamDTO.class))))
+                array = @ArraySchema(schema = @Schema(implementation = StudentExamDto.class))))
     })
-    public ResponseEntity<List<StudentExamDTO>> getAllExamHistoryByUser(@PathVariable Long userId) {
+    public ResponseEntity<List<StudentExamDto>> getAllExamHistoryByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(examHistoryService.getByUserId(userId));
     }
 }

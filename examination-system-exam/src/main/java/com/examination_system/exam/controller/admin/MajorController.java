@@ -35,7 +35,6 @@ public class MajorController {
             @ApiResponse(responseCode = "400", description = "Yêu cầu không hợp lệ", content = @Content)
     })
     public ResponseEntity<MajorDto> addMajor(@RequestBody MajorDto request) {
-        System.out.println("Adding major: " + request);
         Major major = majorRepository.save(majorMapper.toEntity(request));
         MajorDto dto = majorMapper.toDto(major);
         return ResponseEntity.status(HttpStatus.CREATED).body(dto);

@@ -59,4 +59,12 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 
+    public Long getUserId() {
+        return user.getUserId();
+    }
+
+    public AuthInfo getAuthInfo() {
+        return user;
+    }
+
 }

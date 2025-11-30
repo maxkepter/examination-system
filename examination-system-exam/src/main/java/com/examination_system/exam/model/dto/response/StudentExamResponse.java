@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.examination_system.exam.model.dto.common.StudentExamDTO;
+import com.examination_system.exam.model.dto.common.StudentExamDto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class StudentExamResponse extends StudentExamDTO {
+public class StudentExamResponse extends StudentExamDto {
 
     @NotNull
     @Size(min = 1)

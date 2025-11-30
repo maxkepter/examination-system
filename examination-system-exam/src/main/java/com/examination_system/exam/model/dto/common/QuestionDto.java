@@ -17,7 +17,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class QuestionDTO {
+public class QuestionDto {
     Long questionId;
     @NotBlank
     @Size(max = 5000)
@@ -31,5 +31,5 @@ public class QuestionDTO {
 
     @NotNull
     @Size(min = 2)
-    List<QuestionOptionDTO> options;
+    List<QuestionOptionDto> options;
 }
