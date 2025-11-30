@@ -3,6 +3,7 @@ package com.examination_system.model.entity.user;
 import java.util.Collection;
 import java.util.Collections;
 
+import com.examination_system.common.model.entity.user.AuthInfo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

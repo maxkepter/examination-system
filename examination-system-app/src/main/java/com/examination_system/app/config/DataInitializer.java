@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import org.springframework.boot.CommandLineRunner;
@@ -12,21 +13,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.examination_system.model.entity.exam.Chapter;
-import com.examination_system.model.entity.exam.Exam;
-import com.examination_system.model.entity.exam.Major;
-import com.examination_system.model.entity.exam.Question;
-import com.examination_system.model.entity.exam.QuestionOption;
-import com.examination_system.model.entity.exam.Subject;
-import com.examination_system.model.entity.user.AuthInfo;
-import com.examination_system.model.entity.user.User;
-import com.examination_system.repository.exam.ChapterRepository;
-import com.examination_system.repository.exam.ExamRepository;
-import com.examination_system.repository.exam.MajorRepository;
-import com.examination_system.repository.exam.QuestionRepository;
-import com.examination_system.repository.exam.QuestionOptionRepository;
-import com.examination_system.repository.exam.SubjectRepository;
-import com.examination_system.repository.user.AuthInfoRepository;
+import com.examination_system.common.model.entity.exam.Chapter;
+import com.examination_system.common.model.entity.exam.Exam;
+import com.examination_system.common.model.entity.exam.Major;
+import com.examination_system.common.model.entity.exam.Question;
+import com.examination_system.common.model.entity.exam.QuestionOption;
+import com.examination_system.common.model.entity.exam.Subject;
+import com.examination_system.common.model.entity.user.AuthInfo;
+import com.examination_system.common.model.entity.user.User;
+import com.examination_system.common.repository.exam.ChapterRepository;
+import com.examination_system.common.repository.exam.ExamRepository;
+import com.examination_system.common.repository.exam.MajorRepository;
+import com.examination_system.common.repository.exam.QuestionRepository;
+import com.examination_system.common.repository.exam.QuestionOptionRepository;
+import com.examination_system.common.repository.exam.SubjectRepository;
+import com.examination_system.common.repository.user.AuthInfoRepository;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -80,7 +81,7 @@ public class DataInitializer implements CommandLineRunner {
                 Subject javaProgramming = Subject.builder()
                                 .subjectCode("JAVA101")
                                 .subjectName("Java Programming")
-                                .majors(Arrays.asList(computerScience))
+                                .majors(Set.of(computerScience))
                                 .build();
                 subjectRepository.save(javaProgramming);
 

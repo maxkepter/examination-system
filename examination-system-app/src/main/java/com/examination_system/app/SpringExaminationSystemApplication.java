@@ -1,4 +1,4 @@
-package com.examination_system;
+package com.examination_system.common;
 
 import java.util.logging.Logger;
 
@@ -20,7 +20,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "com.examination_system.repository")
 public class SpringExaminationSystemApplication {
     public static void main(String[] args) {
-        Logger logger = Logger.getAnonymousLogger();
+        Logger logger = Logger.getLogger(SpringExaminationSystemApplication.class.getName());
         ConfigurableApplicationContext context = SpringApplication.run(SpringExaminationSystemApplication.class, args);
         logger.info("Application started successfully!");
         logger.info("Access H2 console at: http://localhost:8081/api/h2-console");

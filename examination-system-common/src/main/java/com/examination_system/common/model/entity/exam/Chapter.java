@@ -1,5 +1,6 @@
 package com.examination_system.model.entity.exam;
 
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
 
@@ -12,11 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -38,6 +34,8 @@ public class Chapter extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "subjectCode", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Subject subject;
 
 }

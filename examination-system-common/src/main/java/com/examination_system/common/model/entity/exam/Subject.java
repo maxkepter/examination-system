@@ -1,7 +1,12 @@
 package com.examination_system.model.entity.exam;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.SQLDelete;
 import org.springframework.context.annotation.Scope;
@@ -17,18 +22,13 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@EqualsAndHashCode(callSuper = false)
-@Scope("prototype")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+
 @Entity
 @Table(name = "Subject")
 @SQLDelete(sql = "update Subject set isActive=0 where subId=?")
@@ -41,9 +41,13 @@ public class Subject extends BaseEntity {
 
     @ManyToMany
     @JoinTable(name = "subject_major", joinColumns = @JoinColumn(name = "subjectCode"), inverseJoinColumns = @JoinColumn(name = "majorCode"))
-    private List<Major> majors;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Major> majors;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Chapter> chapters;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Chapter> chapters;
 
 }
