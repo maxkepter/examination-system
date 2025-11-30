@@ -1,4 +1,4 @@
-package com.examination_system.model.entity.exam.student;
+package com.examination_system.common.model.entity.exam.student;
 
 import java.util.List;
 

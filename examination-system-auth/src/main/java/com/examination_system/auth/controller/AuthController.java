@@ -1,15 +1,15 @@
-package com.examination_system.controller;
+package com.examination_system.auth.controller;
 
 import com.examination_system.core.security.JwtUtils;
-import com.examination_system.model.dto.request.LoginRequest;
-import com.examination_system.model.dto.request.RefreshTokenRequest;
-import com.examination_system.model.dto.request.RegisterRequest;
-import com.examination_system.model.dto.response.AuthRespone;
-import com.examination_system.model.entity.token.RefreshToken;
-import com.examination_system.model.entity.user.AuthInfo;
-import com.examination_system.model.entity.user.User;
-import com.examination_system.repository.user.AuthInfoRepository;
-import com.examination_system.service.RefreshTokenService;
+import com.examination_system.auth.model.dto.request.LoginRequest;
+import com.examination_system.auth.model.dto.request.RefreshTokenRequest;
+import com.examination_system.auth.model.dto.request.RegisterRequest;
+import com.examination_system.auth.model.dto.response.AuthRespone;
+import com.examination_system.auth.model.entity.token.RefreshToken;
+import com.examination_system.common.model.entity.user.AuthInfo;
+import com.examination_system.common.model.entity.user.User;
+import com.examination_system.common.repository.user.AuthInfoRepository;
+import com.examination_system.auth.service.RefreshTokenService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

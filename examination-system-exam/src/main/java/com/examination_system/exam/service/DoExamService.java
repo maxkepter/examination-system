@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.examination_system.model.entity.exam.student.Option;
-import com.examination_system.model.entity.exam.student.QuestionWithOptions;
-import com.examination_system.model.entity.exam.student.StudentExam;
-import com.examination_system.repository.exam.student.StudentExamRepository;
+import com.examination_system.common.model.entity.exam.student.Option;
+import com.examination_system.common.model.entity.exam.student.QuestionWithOptions;
+import com.examination_system.common.model.entity.exam.student.StudentExam;
+import com.examination_system.common.repository.exam.student.StudentExamRepository;
 
 @Service
 public class DoExamService {

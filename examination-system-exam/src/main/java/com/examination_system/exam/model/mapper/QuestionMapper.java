@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 
-import com.examination_system.model.entity.exam.Question;
+import com.examination_system.common.model.entity.exam.Question;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {

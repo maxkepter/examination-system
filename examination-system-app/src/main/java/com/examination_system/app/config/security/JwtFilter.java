@@ -1,4 +1,4 @@
-package com.examination_system.config.security;
+package com.examination_system.app.config.security;
 
 import java.io.IOException;
 

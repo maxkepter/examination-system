@@ -1,4 +1,4 @@
-package com.examination_system.model.dto.common;
+package com.examination_system.auth.model.dto.common;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

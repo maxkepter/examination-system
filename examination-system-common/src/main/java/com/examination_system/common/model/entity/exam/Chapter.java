@@ -1,4 +1,4 @@
-package com.examination_system.model.entity.exam;
+package com.examination_system.common.model.entity.exam;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;

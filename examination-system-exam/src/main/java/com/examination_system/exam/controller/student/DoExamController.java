@@ -14,7 +14,7 @@ import com.examination_system.exam.model.dto.common.ExamLogDTO;
 import com.examination_system.exam.model.dto.request.StudentChoiceRequest;
 import com.examination_system.exam.model.dto.request.StudentExamCreationRequest;
 import com.examination_system.exam.model.dto.response.StudentExamResponse;
-import com.examination_system.model.entity.exam.student.StudentExam;
+import com.examination_system.common.model.entity.exam.student.StudentExam;
 import com.examination_system.exam.model.mapper.StudentExamMapper;
 import com.examination_system.exam.service.DoExamService;
 import com.examination_system.exam.service.StudentExamService;

@@ -1,11 +1,11 @@
-package com.examination_system.model.entity.log;
+package com.examination_system.common.model.entity.log;
 
 import java.time.LocalDateTime;
 
 import org.springframework.context.annotation.Scope;
 
 import com.examination_system.core.model.entity.BaseLog;
-import com.examination_system.model.entity.user.User;
+import com.examination_system.common.model.entity.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,10 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -1,11 +1,11 @@
-package com.examination_system.repository.exam.student;
+package com.examination_system.common.repository.exam.student;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.examination_system.core.repository.SoftDeleteRepository;
-import com.examination_system.model.entity.exam.Exam;
-import com.examination_system.model.entity.exam.student.StudentExam;
+import com.examination_system.common.model.entity.exam.Exam;
+import com.examination_system.common.model.entity.exam.student.StudentExam;
 
 import java.util.List;
 import java.util.Optional;

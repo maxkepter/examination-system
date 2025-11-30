@@ -1,4 +1,4 @@
-package com.examination_system.model.dto.request;
+package com.examination_system.auth.model.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

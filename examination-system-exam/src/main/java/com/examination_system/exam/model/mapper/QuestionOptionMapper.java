@@ -3,7 +3,7 @@ package com.examination_system.exam.model.mapper;
 import org.mapstruct.*;
 
 import com.examination_system.exam.model.dto.common.QuestionOptionDTO;
-import com.examination_system.model.entity.exam.QuestionOption;
+import com.examination_system.common.model.entity.exam.QuestionOption;
 
 @Mapper(componentModel = "spring")
 public interface QuestionOptionMapper {

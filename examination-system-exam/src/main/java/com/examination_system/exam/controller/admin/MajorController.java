@@ -14,9 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.examination_system.model.entity.exam.Major;
+import com.examination_system.common.model.entity.exam.Major;
 import com.examination_system.exam.model.mapper.MajorMapper;
-import com.examination_system.repository.exam.MajorRepository;
+import com.examination_system.common.repository.exam.MajorRepository;
 
 import lombok.RequiredArgsConstructor;
 

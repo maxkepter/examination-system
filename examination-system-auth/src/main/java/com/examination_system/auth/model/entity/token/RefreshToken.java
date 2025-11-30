@@ -1,11 +1,11 @@
-package com.examination_system.model.entity.token;
+package com.examination_system.auth.model.entity.token;
 
 import java.time.Instant;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.examination_system.model.entity.user.AuthInfo;
+import com.examination_system.common.model.entity.user.AuthInfo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

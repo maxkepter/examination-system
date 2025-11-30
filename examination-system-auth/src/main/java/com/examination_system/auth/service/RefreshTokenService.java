@@ -1,32 +1,28 @@
-package com.examination_system.service;
+package com.examination_system.auth.service;
 
 import java.text.MessageFormat;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.examination_system.common.repository.user.AuthInfoRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.examination_system.exception.TokenExpiredException;
-import com.examination_system.model.entity.token.RefreshToken;
-import com.examination_system.model.entity.user.AuthInfo;
-import com.examination_system.repository.token.RefreshTokenRepository;
-import com.examination_system.repository.user.AuthInfoRepository;
+import com.examination_system.auth.exception.TokenExpiredException;
+import com.examination_system.auth.model.entity.token.RefreshToken;
+import com.examination_system.auth.repository.token.RefreshTokenRepository;
+import com.examination_system.common.model.entity.user.AuthInfo;
 
 @Service
+@RequiredArgsConstructor
 public class RefreshTokenService {
     @Value("${jwt.refresh-token-duration-days:30}")
     private long refreshTokenDurationDays;
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthInfoRepository authInfoRepository;
-
-    public RefreshTokenService(RefreshTokenRepository refreshTokenRepository,
-            AuthInfoRepository authInfoRepository) {
-        this.refreshTokenRepository = refreshTokenRepository;
-        this.authInfoRepository = authInfoRepository;
-    }
 
     // create refresh token for user
     @Transactional

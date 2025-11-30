@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examination_system.exam.model.dto.response.StudentExamResponse;
-import com.examination_system.model.entity.exam.student.StudentExam;
+import com.examination_system.common.model.entity.exam.student.StudentExam;
 import com.examination_system.exam.model.mapper.StudentExamMapper;
 import com.examination_system.exam.service.StudentExamService;
 

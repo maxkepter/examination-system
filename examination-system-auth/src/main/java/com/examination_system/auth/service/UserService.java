@@ -1,15 +1,15 @@
-package com.examination_system.service;
+package com.examination_system.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.examination_system.model.dto.common.UserDTO;
-import com.examination_system.model.entity.user.AuthInfo;
-import com.examination_system.model.entity.user.User;
-import com.examination_system.model.mapper.AuthInfoMapper;
-import com.examination_system.model.mapper.UserMapper;
-import com.examination_system.repository.user.AuthInfoRepository;
-import com.examination_system.repository.user.UserRepository;
+import com.examination_system.auth.model.dto.common.UserDTO;
+import com.examination_system.common.model.entity.user.AuthInfo;
+import com.examination_system.common.model.entity.user.User;
+import com.examination_system.auth.model.mapper.AuthInfoMapper;
+import com.examination_system.auth.model.mapper.UserMapper;
+import com.examination_system.common.repository.user.AuthInfoRepository;
+import com.examination_system.common.repository.user.UserRepository;
 
 @Service
 public class UserService {

@@ -1,4 +1,4 @@
-package com.examination_system.model.entity.exam;
+package com.examination_system.common.model.entity.exam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.hibernate.annotations.SQLDelete;
 
 import com.examination_system.core.model.entity.BaseEntity;
-import com.examination_system.model.entity.exam.student.Option;
+import com.examination_system.common.model.entity.exam.student.Option;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

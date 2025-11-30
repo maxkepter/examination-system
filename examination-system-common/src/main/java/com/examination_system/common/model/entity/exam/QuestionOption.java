@@ -1,11 +1,9 @@
-package com.examination_system.model.entity.exam;
+package com.examination_system.common.model.entity.exam;
 
 import org.hibernate.annotations.SQLDelete;
-import org.springframework.context.annotation.Scope;
 
 import com.examination_system.core.model.entity.BaseEntity;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

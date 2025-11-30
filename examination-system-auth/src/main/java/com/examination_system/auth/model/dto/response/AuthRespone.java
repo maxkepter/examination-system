@@ -1,4 +1,4 @@
-package com.examination_system.model.dto.response;
+package com.examination_system.auth.model.dto.response;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

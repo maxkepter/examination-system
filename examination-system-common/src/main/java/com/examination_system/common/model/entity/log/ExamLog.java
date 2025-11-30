@@ -1,9 +1,9 @@
-package com.examination_system.model.entity.log;
+package com.examination_system.common.model.entity.log;
 
 import org.springframework.context.annotation.Scope;
 
 import com.examination_system.core.model.entity.BaseLog;
-import com.examination_system.model.entity.exam.student.StudentExam;
+import com.examination_system.common.model.entity.exam.student.StudentExam;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

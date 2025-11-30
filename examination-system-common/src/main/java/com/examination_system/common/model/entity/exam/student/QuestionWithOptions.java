@@ -1,11 +1,11 @@
-package com.examination_system.model.entity.exam.student;
+package com.examination_system.common.model.entity.exam.student;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.annotation.Scope;
 
-import com.examination_system.model.entity.exam.Question;
+import com.examination_system.common.model.entity.exam.Question;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

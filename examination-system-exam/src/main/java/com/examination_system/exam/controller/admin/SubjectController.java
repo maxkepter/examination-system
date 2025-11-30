@@ -2,7 +2,7 @@ package com.examination_system.exam.controller.admin;
 
 import com.examination_system.exam.model.dto.common.SubjectDto;
 import com.examination_system.exam.model.dto.response.SubjectRespone;
-import com.examination_system.model.entity.exam.Subject;
+import com.examination_system.common.model.entity.exam.Subject;
 
 import jakarta.validation.Valid;
 
@@ -106,14 +106,16 @@ public class SubjectController {
             @ApiResponse(responseCode = "400", description = "Yêu cầu không hợp lệ", content = @Content)
     })
     public ResponseEntity<SubjectDto> updateSubject(@PathVariable String subjectCode,
-            @Valid @RequestBody SubjectCreationRequest request) {
+                                                    @Valid @RequestBody SubjectCreationRequest request) {
         try {
+            // Kiểm tra tồn tại
+            subjectService.getSubjectByCode(subjectCode);
+            // Dùng mapper/service để tạo entity từ request
             Subject subject = subjectService.toEntity(request);
             subject.setSubjectCode(subjectCode);
             Subject updated = subjectService.updateSubject(subject);
             return ResponseEntity.ok(subjectMapper.toDto(updated));
         } catch (IllegalArgumentException ex) {
-            // If not found or invalid, map to 404 or 400 depending on message
             String msg = ex.getMessage() != null ? ex.getMessage() : "";
             if (msg.toLowerCase().contains("not found")) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

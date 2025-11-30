@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.examination_system.exam.model.dto.common.StudentExamDTO;
 import com.examination_system.exam.model.dto.response.StudentExamResponse;
 import com.examination_system.exam.model.mapper.StudentExamMapper;
-import com.examination_system.model.entity.exam.Exam;
-import com.examination_system.model.entity.exam.student.StudentExam;
-import com.examination_system.repository.exam.ExamRepository;
-import com.examination_system.repository.exam.student.StudentExamRepository;
+import com.examination_system.common.model.entity.exam.Exam;
+import com.examination_system.common.model.entity.exam.student.StudentExam;
+import com.examination_system.common.repository.exam.ExamRepository;
+import com.examination_system.common.repository.exam.student.StudentExamRepository;
 
 @Service
 public class ExamHistoryService {

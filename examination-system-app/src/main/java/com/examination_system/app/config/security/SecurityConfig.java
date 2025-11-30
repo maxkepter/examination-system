@@ -1,4 +1,4 @@
-package com.examination_system.config.security;
+package com.examination_system.app.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -48,60 +48,60 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
-    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-            .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**", "/h2-console/**","/swagger-ui/**","/v3/**").permitAll()
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/student/**").hasAnyRole("ADMIN", "USER")
-                .anyRequest().authenticated()
-            )
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authProvider())
-            .httpBasic(HttpBasicConfigurer::disable)
-            .formLogin(form -> form.disable())
-            .logout(logout -> logout
-                .logoutUrl("/auth/logout")
-                .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
-            )
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**", "/h2-console/**", "/swagger-ui/**", "/v3/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/student/**").hasAnyRole("ADMIN", "USER")
+                        .anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authProvider())
+                .httpBasic(HttpBasicConfigurer::disable)
+                .formLogin(form -> form.disable())
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK)))
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-//                .csrf(csrf -> csrf.disable())
-//                .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/auth/**", "/h2-console/**").permitAll()
-//                        .anyRequest().permitAll()
-//                )
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authenticationProvider(authProvider())
-//                .httpBasic(HttpBasicConfigurer::disable)
-//                .formLogin(form -> form.disable())
-//                .logout(logout -> logout
-//                        .logoutUrl("/auth/logout")
-//                        .logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpServletResponse.SC_OK))
-//                )
-//                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-//        return http.build();
-//    }
+    // @Bean
+    // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
+    // Exception {
+    // http
+    // .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+    // .csrf(csrf -> csrf.disable())
+    // .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
+    // .authorizeHttpRequests(auth -> auth
+    // .requestMatchers("/auth/**", "/h2-console/**").permitAll()
+    // .anyRequest().permitAll()
+    // )
+    // .sessionManagement(session ->
+    // session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+    // .authenticationProvider(authProvider())
+    // .httpBasic(HttpBasicConfigurer::disable)
+    // .formLogin(form -> form.disable())
+    // .logout(logout -> logout
+    // .logoutUrl("/auth/logout")
+    // .logoutSuccessHandler((req, res, auth) ->
+    // res.setStatus(HttpServletResponse.SC_OK))
+    // )
+    // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    // return http.build();
+    // }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
         cfg.setAllowCredentials(true);
-        cfg.setAllowedOriginPatterns(Arrays.asList("http://localhost:5173", "http://localhost:8081"));
-        cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        cfg.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:8081"));
+        cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         cfg.setAllowedHeaders(Arrays.asList("*"));
         cfg.setExposedHeaders(Arrays.asList("Authorization"));
         cfg.setMaxAge(3600L);

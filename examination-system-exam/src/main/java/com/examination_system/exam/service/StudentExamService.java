@@ -9,15 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.examination_system.model.entity.exam.Exam;
-import com.examination_system.model.entity.exam.Question;
-import com.examination_system.model.entity.exam.student.QuestionWithOptions;
-import com.examination_system.model.entity.exam.student.StudentExam;
-import com.examination_system.model.entity.log.ExamLog;
-import com.examination_system.model.entity.user.User;
-import com.examination_system.repository.exam.ExamRepository;
-import com.examination_system.repository.exam.student.StudentExamRepository;
-import com.examination_system.repository.user.AuthInfoRepository;
+import com.examination_system.common.model.entity.exam.Exam;
+import com.examination_system.common.model.entity.exam.Question;
+import com.examination_system.common.model.entity.exam.student.QuestionWithOptions;
+import com.examination_system.common.model.entity.exam.student.StudentExam;
+import com.examination_system.common.model.entity.log.ExamLog;
+import com.examination_system.common.model.entity.user.User;
+import com.examination_system.common.repository.exam.ExamRepository;
+import com.examination_system.common.repository.exam.student.StudentExamRepository;
+import com.examination_system.common.repository.user.AuthInfoRepository;
 
 @Service
 public class StudentExamService {

@@ -8,14 +8,14 @@ import org.mapstruct.Mapping;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.MappingTarget;
 
-import com.examination_system.model.entity.exam.Subject;
-import com.examination_system.model.entity.exam.Major;
-import com.examination_system.model.entity.exam.Chapter;
+import com.examination_system.common.model.entity.exam.Subject;
+import com.examination_system.common.model.entity.exam.Major;
+import com.examination_system.common.model.entity.exam.Chapter;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring", uses = {MajorMapper.class, ChapterMapper.class})
+@Mapper(componentModel = "spring", uses = { MajorMapper.class, ChapterMapper.class })
 public interface SubjectMapper {
     @Mapping(target = "majors", ignore = true)
     @Mapping(target = "chapters", ignore = true)
@@ -31,25 +31,25 @@ public interface SubjectMapper {
     @Mapping(target = "chapters", source = "chapters")
     SubjectRespone toResponse(Subject subject);
 
-    default List<Major> mapMajors(List<String> majorCodes) {
+    default Set<Major> mapMajors(Set<String> majorCodes) {
         if (majorCodes == null)
             return null;
         return majorCodes.stream()
                 .map(code -> Major.builder().majorCode(code).build())
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
-    default List<Chapter> mapChapters(List<String> chapterNames) {
+    default Set<Chapter> mapChapters(Set<String> chapterNames) {
         if (chapterNames == null)
             return null;
         return chapterNames.stream()
                 .map(name -> Chapter.builder().chapterName(name).build())
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     @AfterMapping
     default void linkSubjectInChapters(@MappingTarget Subject subject) {
-        List<Chapter> chapters = subject.getChapters();
+        Set<Chapter> chapters = subject.getChapters();
         if (chapters != null) {
             chapters.forEach(ch -> ch.setSubject(subject));
         }

@@ -1,4 +1,4 @@
-package com.examination_system.model.entity.user;
+package com.examination_system.common.model.entity.user;
 
 import org.hibernate.annotations.SQLDelete;
 

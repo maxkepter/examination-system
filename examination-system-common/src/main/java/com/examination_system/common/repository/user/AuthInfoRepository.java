@@ -1,9 +1,9 @@
-package com.examination_system.repository.user;
+package com.examination_system.common.repository.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.examination_system.model.entity.user.AuthInfo;
+import com.examination_system.common.model.entity.user.AuthInfo;
 
 @Repository
 public interface AuthInfoRepository extends JpaRepository<AuthInfo, Long> {

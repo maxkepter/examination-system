@@ -1,9 +1,9 @@
-package com.examination_system.model.entity.exam.student;
+package com.examination_system.common.model.entity.exam.student;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.examination_system.model.entity.exam.QuestionOption;
+import com.examination_system.common.model.entity.exam.QuestionOption;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

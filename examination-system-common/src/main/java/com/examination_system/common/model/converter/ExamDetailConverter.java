@@ -1,8 +1,8 @@
-package com.examination_system.model.converter;
+package com.examination_system.common.model.converter;
 
 import java.util.List;
 
-import com.examination_system.model.entity.exam.student.QuestionWithOptions;
+import com.examination_system.common.model.entity.exam.student.QuestionWithOptions;
 
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;

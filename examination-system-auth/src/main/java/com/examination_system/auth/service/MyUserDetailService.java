@@ -1,4 +1,4 @@
-package com.examination_system.service;
+package com.examination_system.auth.service;
 
 import java.util.Optional;
 
@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.examination_system.model.entity.user.AuthInfo;
-import com.examination_system.model.entity.user.UserPrincipal;
-import com.examination_system.repository.user.AuthInfoRepository;
+import com.examination_system.common.model.entity.user.AuthInfo;
+import com.examination_system.common.model.entity.user.UserPrincipal;
+import com.examination_system.common.repository.user.AuthInfoRepository;
 
 /**
  * User Details Service for authentication

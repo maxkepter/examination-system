@@ -1,4 +1,4 @@
-package com.examination_system.model.entity.exam.student;
+package com.examination_system.common.model.entity.exam.student;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.Set;
 
 import org.hibernate.annotations.SQLDelete;
 
-import com.examination_system.model.converter.ExamDetailConverter;
-import com.examination_system.model.converter.StudentChoiceConverter;
+import com.examination_system.common.model.converter.ExamDetailConverter;
+import com.examination_system.common.model.converter.StudentChoiceConverter;
 import com.examination_system.core.model.entity.BaseEntity;
-import com.examination_system.model.entity.exam.Exam;
-import com.examination_system.model.entity.user.User;
+import com.examination_system.common.model.entity.exam.Exam;
+import com.examination_system.common.model.entity.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;

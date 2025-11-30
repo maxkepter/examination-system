@@ -1,4 +1,4 @@
-package com.examination_system.model.entity.user;
+package com.examination_system.app.user;
 
 import java.util.Collection;
 import java.util.Collections;

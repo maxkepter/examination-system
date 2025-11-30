@@ -1,4 +1,4 @@
-package com.examination_system.exception;
+package com.examination_system.auth.exception;
 
 public class TokenRevokedException extends RuntimeException {
     public TokenRevokedException(String message) {

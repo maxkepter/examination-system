@@ -1,4 +1,4 @@
-package com.examination_system.config;
+package com.examination_system.app.config;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

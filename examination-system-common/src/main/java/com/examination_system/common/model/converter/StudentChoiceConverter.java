@@ -1,4 +1,4 @@
-package com.examination_system.model.converter;
+package com.examination_system.common.model.converter;
 
 import java.util.Map;
 import java.util.Set;

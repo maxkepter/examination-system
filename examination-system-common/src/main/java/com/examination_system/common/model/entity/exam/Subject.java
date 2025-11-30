@@ -1,15 +1,9 @@
-package com.examination_system.model.entity.exam;
+package com.examination_system.common.model.entity.exam;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.SQLDelete;
-import org.springframework.context.annotation.Scope;
 
 import com.examination_system.core.model.entity.BaseEntity;
 

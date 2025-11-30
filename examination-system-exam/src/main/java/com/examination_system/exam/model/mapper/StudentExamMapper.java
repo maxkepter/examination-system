@@ -2,7 +2,7 @@ package com.examination_system.exam.model.mapper;
 
 import java.util.List;
 
-import com.examination_system.model.entity.exam.student.StudentExam;
+import com.examination_system.common.model.entity.exam.student.StudentExam;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
