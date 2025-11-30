@@ -16,7 +16,6 @@ import com.examination_system.auth.model.dto.request.UpdateProfileRequest;
 import com.examination_system.auth.model.dto.response.ProfileResponse;
 import com.examination_system.auth.service.UserService;
 import com.examination_system.common.model.entity.user.User;
-import com.examination_system.common.model.entity.user.UserPrincipal;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -38,43 +37,37 @@ public class ProfileController {
     private UserService userService;
 
     /**
-     * Lấy thông tin chi tiết của người dùng
+     * Lấy thông tin chi tiết của người dùng theo userName
      * Chỉ cho phép xem thông tin của chính mình
      */
-    @GetMapping("/{userId}")
+    @GetMapping("/{userName}")
     @Operation(summary = "Xem thông tin cá nhân", description = "Lấy thông tin chi tiết của người dùng (chỉ được xem thông tin của chính mình)")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Thành công",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ProfileResponse.class))),
-            @ApiResponse(responseCode = "403", description = "Không có quyền truy cập - Chỉ được xem thông tin của chính mình",
-                    content = @Content),
-            @ApiResponse(responseCode = "404", description = "Không tìm thấy người dùng",
-                    content = @Content),
-            @ApiResponse(responseCode = "401", description = "Chưa xác thực",
-                    content = @Content)
+            @ApiResponse(responseCode = "200", description = "Thành công", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProfileResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Không có quyền truy cập - Chỉ được xem thông tin của chính mình", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Không tìm thấy người dùng", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Chưa xác thực", content = @Content)
     })
-    public ResponseEntity<?> getUserProfile(@PathVariable Long userId) {
+    public ResponseEntity<?> getUserProfile(@PathVariable String userName) {
         try {
             // Lấy thông tin người dùng hiện tại từ SecurityContext
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            
+
             if (authentication == null || !authentication.isAuthenticated()) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body("User is not authenticated");
             }
 
-            UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-            Long currentUserId = userPrincipal.getUserId();
+            String currentUserName = authentication.getName();
 
             // Kiểm tra xem người dùng có đang cố truy cập thông tin của người khác không
-            if (!currentUserId.equals(userId)) {
+            if (!currentUserName.equals(userName)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("Access denied. You can only view your own profile");
             }
 
             // Lấy thông tin user từ database
-            User user = userService.getUserById(userId);
+            User user = userService.getUserByUsername(userName);
 
             // Tạo response
             ProfileResponse response = ProfileResponse.builder()
@@ -98,51 +91,44 @@ public class ProfileController {
     }
 
     /**
-     * Cập nhật thông tin cá nhân của người dùng
+     * Cập nhật thông tin cá nhân của người dùng theo userName
      * Chỉ cho phép cập nhật thông tin của chính mình
      */
-    @PutMapping("/{userId}")
+    @PutMapping("/{userName}")
     @Operation(summary = "Cập nhật thông tin cá nhân", description = "Cập nhật FirstName, LastName, Email (chỉ được cập nhật thông tin của chính mình)")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Cập nhật thành công",
-                    content = @Content),
-            @ApiResponse(responseCode = "403", description = "Không có quyền truy cập - Chỉ được cập nhật thông tin của chính mình",
-                    content = @Content),
-            @ApiResponse(responseCode = "404", description = "Không tìm thấy người dùng",
-                    content = @Content),
-            @ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ",
-                    content = @Content),
-            @ApiResponse(responseCode = "401", description = "Chưa xác thực",
-                    content = @Content)
+            @ApiResponse(responseCode = "200", description = "Cập nhật thành công", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Không có quyền truy cập - Chỉ được cập nhật thông tin của chính mình", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Không tìm thấy người dùng", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Chưa xác thực", content = @Content)
     })
     public ResponseEntity<?> updateUserProfile(
-            @PathVariable Long userId,
+            @PathVariable String userName,
             @Valid @RequestBody UpdateProfileRequest request) {
         try {
             // Lấy thông tin người dùng hiện tại từ SecurityContext
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            
+
             if (authentication == null || !authentication.isAuthenticated()) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                         .body("User is not authenticated");
             }
 
-            UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-            Long currentUserId = userPrincipal.getUserId();
+            String currentUserName = authentication.getName();
 
             // Kiểm tra xem người dùng có đang cố cập nhật thông tin của người khác không
-            if (!currentUserId.equals(userId)) {
+            if (!currentUserName.equals(userName)) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN)
                         .body("Access denied. You can only update your own profile");
             }
 
             // Cập nhật thông tin user
-            userService.updateProfile(
-                    userId,
+            userService.updateProfileByUsername(
+                    userName,
                     request.getFirstName(),
                     request.getLastName(),
-                    request.getEmail()
-            );
+                    request.getEmail());
 
             return ResponseEntity.ok("Profile updated successfully");
 

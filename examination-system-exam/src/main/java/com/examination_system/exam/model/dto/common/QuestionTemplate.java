@@ -1,22 +1,23 @@
 package com.examination_system.exam.model.dto.common;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class QuestionTemplate {
-    @NotBlank
-    private String chapterNo;
+    @NotNull(message = "Chapter ID is required")
+    private Long chapterId;
 
-    @NotBlank
-    @Pattern(regexp = "^[123]$", message = "Difficulty must be 1, 2, or 3")
-    private String difficulty;
+    @NotNull(message = "Difficulty is required")
+    private Integer difficulty;
 
-    @Positive
+    @Positive(message = "Amount must be positive")
     private int amount;
-
 }

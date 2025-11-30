@@ -197,11 +197,10 @@ public class DataInitializer implements CommandLineRunner {
                 Exam sampleExam = Exam.builder()
                                 .duration(60) // 60 minutes
                                 .examDate(LocalDateTime.now().plusDays(7)) // 7 days from now
-                                .deadline(LocalDate.now().plusDays(14)) // 14 days from now
+                                .deadline(LocalDateTime.now().plusDays(14)) // 14 days from now
                                 .examCode("JAVA101-EXAM-001")
                                 .examName("Java Programming Midterm Exam")
                                 .questions(questions)
-                                .user(examCreator)
                                 .build();
                 examRepository.save(sampleExam);
 

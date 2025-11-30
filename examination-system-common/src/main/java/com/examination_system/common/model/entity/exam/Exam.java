@@ -1,6 +1,5 @@
 package com.examination_system.common.model.entity.exam;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -51,7 +50,7 @@ public class Exam extends BaseEntity {
     private LocalDateTime examDate;
 
     @Column(nullable = false)
-    private LocalDate deadline;
+    private LocalDateTime deadline;
 
     @Column(nullable = false, unique = true, length = 50)
     private String examCode;
@@ -59,12 +58,13 @@ public class Exam extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String examName;
 
+    @ManyToOne
+    @JoinColumn(name = "subjectCode", referencedColumnName = "subjectCode")
+    private Subject subject;
+
     @ManyToMany(targetEntity = Question.class)
     @JoinTable(name = "Exam_Question", joinColumns = @JoinColumn(name = "examID", referencedColumnName = "examID"), inverseJoinColumns = @JoinColumn(name = "questionID", referencedColumnName = "questionID"))
     private List<Question> questions;
 
-    @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
 
 }

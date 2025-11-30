@@ -1,6 +1,8 @@
 package com.examination_system.exam.controller.admin;
 
 import com.examination_system.exam.model.dto.common.QuestionDto;
+import com.examination_system.exam.model.dto.request.QuestionCountRequest;
+import com.examination_system.exam.model.dto.response.QuestionCountResponse;
 import com.examination_system.exam.model.mapper.QuestionMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -94,6 +96,24 @@ public class QuestionController {
                 .map(questionMapper::toDTO)
                 .toList();
         return ResponseEntity.ok(results);
+    }
+
+    @GetMapping("/count")
+    @Operation(summary = "Đếm số câu hỏi có sẵn", description = "Đếm số câu hỏi có sẵn theo môn học, chương và độ khó để validate khi tạo bài thi")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Thành công", content = @Content)
+    })
+    public ResponseEntity<QuestionCountResponse> countAvailableQuestions(
+            @RequestParam(required = false) String subjectCode,
+            @RequestParam(required = false) Long chapterId,
+            @RequestParam(required = false) Integer difficulty) {
+        QuestionCountRequest request = QuestionCountRequest.builder()
+                .subjectCode(subjectCode)
+                .chapterId(chapterId)
+                .difficulty(difficulty)
+                .build();
+        QuestionCountResponse response = questionService.countAvailableQuestions(request);
+        return ResponseEntity.ok(response);
     }
 
 }

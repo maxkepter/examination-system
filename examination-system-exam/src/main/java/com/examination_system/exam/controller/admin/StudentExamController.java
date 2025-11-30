@@ -42,4 +42,23 @@ public class StudentExamController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/exam/{examId}")
+    @Operation(summary = "Lấy danh sách bài thi theo đề thi", description = "Lấy tất cả bài thi của học viên theo exam ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Thành công",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404", description = "Không tìm thấy đề thi", content = @Content)
+    })
+    public ResponseEntity<?> getStudentExamsByExamId(@PathVariable Long examId) {
+        try {
+            var studentExams = studentExamService.getStudentExamsByExamId(examId);
+            var responses = studentExams.stream()
+                    .map(studentExamMapper::toResponse)
+                    .toList();
+            return ResponseEntity.ok(responses);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(404).body(ex.getMessage());
+        }
+    }
+
 }

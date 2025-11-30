@@ -1,6 +1,5 @@
 package com.examination_system.exam.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -76,11 +75,11 @@ public class StudentExamService {
                 .orElseThrow(() -> new IllegalArgumentException("Student exam not found for examId: " + examId));
 
         int duration = studentExam.getExam().getDuration();
-        LocalDate deadline = studentExam.getExam().getDeadline();
+        LocalDateTime deadline = studentExam.getExam().getDeadline();
         LocalDateTime starTime = studentExam.getStartTime();
 
         // if over deadline or run out time, submit exam
-        if (deadline.isBefore(LocalDate.now()) || starTime.plusMinutes(duration).isBefore(LocalDateTime.now())) {
+        if (deadline.isBefore(LocalDateTime.now()) || starTime.plusMinutes(duration).isBefore(LocalDateTime.now())) {
             doExamService.submit(examId);
             throw new RuntimeException("Exam run out of time");
         }
@@ -93,5 +92,12 @@ public class StudentExamService {
     public StudentExam getStudentExamById(Long studentExamId) {
         return studentExamRepository.findById(studentExamId)
                 .orElseThrow(() -> new RuntimeException("Student exam not found with id: " + studentExamId));
+    }
+
+    @Transactional(readOnly = true)
+    public List<StudentExam> getStudentExamsByExamId(Long examId) {
+        Exam exam = examRepository.findById(examId)
+                .orElseThrow(() -> new RuntimeException("Exam not found with id: " + examId));
+        return studentExamRepository.findByExam(exam);
     }
 }

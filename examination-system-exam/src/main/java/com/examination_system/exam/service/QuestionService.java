@@ -3,7 +3,6 @@ package com.examination_system.exam.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.examination_system.exam.model.dto.common.QuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -12,9 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.examination_system.common.model.entity.exam.Chapter;
 import com.examination_system.common.model.entity.exam.Question;
 import com.examination_system.common.model.entity.exam.QuestionOption;
+import com.examination_system.common.model.entity.exam.Subject;
+
+import com.examination_system.common.repository.exam.ChapterRepository;
+import com.examination_system.common.repository.exam.QuestionRepository;
+import com.examination_system.common.repository.exam.SubjectRepository;
+import com.examination_system.exam.model.dto.common.QuestionDto;
+import com.examination_system.exam.model.dto.request.QuestionCountRequest;
+import com.examination_system.exam.model.dto.response.QuestionCountResponse;
 import com.examination_system.exam.model.mapper.QuestionMapper;
 import com.examination_system.exam.model.mapper.QuestionOptionMapper;
-import com.examination_system.common.repository.exam.QuestionRepository;
 import com.examination_system.common.repository.exam.QuestionOptionRepository;
 
 @Service
@@ -24,6 +30,8 @@ public class QuestionService {
     private final QuestionOptionMapper questionOptionMapper;
     private final QuestionRepository questionRepository;
     private final QuestionOptionRepository questionOptionRepository;
+    private final SubjectRepository subjectRepository;
+    private final ChapterRepository chapterRepository;
 
     @Transactional
     public void createQuestion(QuestionDto questionDTO) {
@@ -44,7 +52,7 @@ public class QuestionService {
                     .map(optionDTO -> {
                         QuestionOption option = questionOptionMapper.toNewEntity(optionDTO);
                         option.setQuestion(question);
-                        option.setCorrect(optionDTO.isCorrect());
+                        option.setCorrect(optionDTO.getIsCorrect());
                         return option;
                     })
                     .toList();
@@ -121,6 +129,68 @@ public class QuestionService {
             throw new IllegalArgumentException("Question with ID " + questionId + " does not exist.");
         }
         questionRepository.deleteById(questionId);
+    }
+
+    @Transactional(readOnly = true)
+    public QuestionCountResponse countAvailableQuestions(QuestionCountRequest request) {
+        Specification<Question> spec = Specification.where(null);
+        
+        // Filter by active status
+        spec = spec.and((root, query, criteriaBuilder) -> 
+            criteriaBuilder.isTrue(root.get("isActive")));
+        
+        // Filter by subject (through chapter)
+        if (request.getSubjectCode() != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> 
+                criteriaBuilder.equal(root.get("chapter").get("subject").get("subjectCode"), request.getSubjectCode()));
+        }
+        
+        // Filter by chapter
+        if (request.getChapterId() != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> 
+                criteriaBuilder.equal(root.get("chapter").get("chapterId"), request.getChapterId()));
+        }
+        
+        // Filter by difficulty
+        if (request.getDifficulty() != null) {
+            spec = spec.and((root, query, criteriaBuilder) -> 
+                criteriaBuilder.equal(root.get("difficulty"), request.getDifficulty()));
+        }
+        
+        long count = questionRepository.count(spec);
+        
+        // Build response with additional info
+        QuestionCountResponse.QuestionCountResponseBuilder responseBuilder = QuestionCountResponse.builder()
+                .availableQuestions(count)
+                .difficulty(request.getDifficulty());
+        
+        // Get subject info if provided
+        if (request.getSubjectCode() != null) {
+            Subject subject = subjectRepository.findById(request.getSubjectCode())
+                    .orElse(null);
+            if (subject != null) {
+                responseBuilder.subjectCode(subject.getSubjectCode())
+                        .subjectName(subject.getSubjectName());
+            }
+        }
+        
+        // Get chapter info if provided
+        if (request.getChapterId() != null) {
+            Chapter chapter = chapterRepository.findById(request.getChapterId())
+                    .orElse(null);
+            if (chapter != null) {
+                responseBuilder.chapterId(chapter.getChapterId())
+                        .chapterName(chapter.getChapterName());
+                
+                // If subject not provided but chapter is, get subject from chapter
+                if (request.getSubjectCode() == null && chapter.getSubject() != null) {
+                    responseBuilder.subjectCode(chapter.getSubject().getSubjectCode())
+                            .subjectName(chapter.getSubject().getSubjectName());
+                }
+            }
+        }
+        
+        return responseBuilder.build();
     }
 
 }

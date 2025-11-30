@@ -25,8 +25,14 @@ public class StudentExamDto {
     float score;
     LocalDateTime submitTime;
     LocalDateTime startTime;
+    
+    // Exam information
     @NotNull
     Long examId;
     @Size(max = 255)
     String examName;
+    @Size(max = 255)
+    String examCode;
+    LocalDateTime deadline;
+    Integer duration;
 }

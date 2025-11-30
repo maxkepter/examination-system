@@ -7,16 +7,19 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class QuestionOptionDto {
     private Long optionId; // có thể null khi tạo mới
+    
     @NotBlank
     @Size(max = 2000)
     private String optionContent;
+    
     @JsonProperty("isCorrect")
     @NotNull
-    private boolean isCorrect;
+    private Boolean isCorrect; // Đổi thành Boolean wrapper để tránh vấn đề với primitive
 }

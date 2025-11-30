@@ -6,22 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class ExamResponse {
-    Long examId;
-    int duration;
-    LocalDateTime examDate;
-    LocalDateTime deadline;
-    String examName;
-    String examCode;
+public class QuestionCountResponse {
     String subjectCode;
     String subjectName;
-    List<QuestionResponse> questionResponses;
+    Long chapterId;
+    String chapterName;
+    Integer difficulty;
+    long availableQuestions;
 }

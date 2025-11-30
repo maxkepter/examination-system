@@ -59,4 +59,24 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public User getUserByUsername(String userName) {
+        AuthInfo authInfo = authInfoRepository.findByUserName(userName);
+        if (authInfo == null) {
+            throw new RuntimeException("User not found");
+        }
+        return authInfo.getUser();
+    }
+
+    public void updateProfileByUsername(String userName, String firstName, String lastName, String email) {
+        AuthInfo authInfo = authInfoRepository.findByUserName(userName);
+        if (authInfo == null) {
+            throw new RuntimeException("User not found");
+        }
+        User user = authInfo.getUser();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setEmail(email);
+        userRepository.save(user);
+    }
+
 }

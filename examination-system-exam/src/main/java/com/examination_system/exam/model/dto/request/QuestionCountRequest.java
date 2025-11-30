@@ -1,4 +1,4 @@
-package com.examination_system.exam.model.dto.response;
+package com.examination_system.exam.model.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class OptionResponse {
-    Long optionId;
-    String optionContent;
+public class QuestionCountRequest {
+    String subjectCode;
+    Long chapterId;
+    Integer difficulty;
 }

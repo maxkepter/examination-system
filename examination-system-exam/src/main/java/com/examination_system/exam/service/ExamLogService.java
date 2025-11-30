@@ -8,6 +8,8 @@ import com.examination_system.common.model.entity.log.ExamLog;
 import com.examination_system.common.repository.exam.student.StudentExamRepository;
 import com.examination_system.common.repository.log.ExamLogRepository;
 
+import java.util.List;
+
 @Service
 public class ExamLogService {
     @Autowired
@@ -31,5 +33,13 @@ public class ExamLogService {
     public void createChoiceLog(Long questionId, Long optionId, boolean isRemove, StudentExam studentExam) {
         String information = (isRemove ? "Remove " : "Add ") + " option " + optionId + " in question " + questionId;
         createExamLog(information, studentExam);
+    }
+
+    public List<ExamLog> getExamLogsByStudentExamId(Long studentExamId) {
+        // Verify student exam exists
+        studentExamRepository.findById(studentExamId)
+                .orElseThrow(() -> new RuntimeException("Student exam not found with id: " + studentExamId));
+        
+        return examLogRepository.findByStudentExamId(studentExamId);
     }
 }
