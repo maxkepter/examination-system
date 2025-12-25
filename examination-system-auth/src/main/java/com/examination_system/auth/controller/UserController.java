@@ -1,24 +1,21 @@
 package com.examination_system.auth.controller;
 
+import com.examination_system.auth.model.dto.response.ProfileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.examination_system.auth.model.dto.common.AuthInfoDTO;
 import com.examination_system.auth.model.dto.common.UserDTO;
 import com.examination_system.auth.service.UserService;
 
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.util.List;
 
 /**
  * User management controller (admin operations)
@@ -84,6 +81,20 @@ public class UserController {
         try {
             userService.editUser(userDTO);
             return ResponseEntity.ok("Update user successfully");
+        } catch (RuntimeException ex) {
+            String msg = ex.getMessage() != null ? ex.getMessage().toLowerCase() : "";
+            if (msg.contains("not found")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ProfileResponse>> getUser(){
+        try {
+            List<ProfileResponse> users = userService.findAll();
+            return ResponseEntity.ok(users);
         } catch (RuntimeException ex) {
             String msg = ex.getMessage() != null ? ex.getMessage().toLowerCase() : "";
             if (msg.contains("not found")) {

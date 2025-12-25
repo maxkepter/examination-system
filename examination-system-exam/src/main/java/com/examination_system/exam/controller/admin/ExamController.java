@@ -1,6 +1,7 @@
 package com.examination_system.exam.controller.admin;
 
 import com.examination_system.exam.model.dto.common.ExamDto;
+import com.examination_system.exam.model.dto.request.ExamCreationRequest;
 import com.examination_system.exam.model.dto.response.ExamResponse;
 import com.examination_system.exam.service.ExamService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,9 +36,9 @@ public class ExamController {
             @ApiResponse(responseCode = "400", description = "Dữ liệu không hợp lệ", content = @Content),
             @ApiResponse(responseCode = "401", description = "Chưa xác thực", content = @Content)
     })
-    public ResponseEntity<?> createExam(@Valid @RequestBody ExamDto examDto) {
+    public ResponseEntity<?> createExam(@Valid @RequestBody ExamCreationRequest request) {
         try {
-            ExamResponse response = examService.createExam(examDto);
+            ExamResponse response = examService.createExam(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (RuntimeException ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)

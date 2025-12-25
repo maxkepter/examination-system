@@ -1,5 +1,6 @@
 package com.examination_system.auth.service;
 
+import com.examination_system.auth.model.dto.response.ProfileResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,8 @@ import com.examination_system.auth.model.mapper.AuthInfoMapper;
 import com.examination_system.auth.model.mapper.UserMapper;
 import com.examination_system.common.repository.user.AuthInfoRepository;
 import com.examination_system.common.repository.user.UserRepository;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -25,6 +28,23 @@ public class UserService {
 
     @Autowired
     AuthInfoMapper authInfoMapper;
+
+    public List<ProfileResponse> findAll() {
+        List<AuthInfo> authInfos = authInfoRepository.findAll();
+        return authInfos.stream()
+                .map(authInfo -> {
+                    User user = authInfo.getUser();
+                    ProfileResponse profileResponse = new ProfileResponse();
+                    profileResponse.setUserId(user.getUserId());
+                    profileResponse.setFirstName(user.getFirstName());
+                    profileResponse.setLastName(user.getLastName());
+                    profileResponse.setEmail(user.getEmail());
+                    profileResponse.setUsername(authInfo.getUserName());
+                    profileResponse.setRole(authInfo.getRole());
+                    return profileResponse;
+                })
+                .toList();
+    }
 
     public void editUserRole(Long userId, Integer role) {
         AuthInfo authInfo = authInfoRepository.findById(userId)

@@ -35,11 +35,6 @@ public class ProfileController {
 
     @Autowired
     private UserService userService;
-
-    /**
-     * Lấy thông tin chi tiết của người dùng theo userName
-     * Chỉ cho phép xem thông tin của chính mình
-     */
     @GetMapping("/{userName}")
     @Operation(summary = "Xem thông tin cá nhân", description = "Lấy thông tin chi tiết của người dùng (chỉ được xem thông tin của chính mình)")
     @ApiResponses(value = {
