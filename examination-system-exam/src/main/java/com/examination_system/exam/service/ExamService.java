@@ -8,6 +8,7 @@ import com.examination_system.common.repository.exam.QuestionRepository;
 import com.examination_system.common.repository.exam.SubjectRepository;
 import com.examination_system.exam.model.dto.common.ExamDto;
 import com.examination_system.exam.model.dto.common.QuestionTemplate;
+import com.examination_system.exam.model.dto.request.ExamCreationRequest;
 import com.examination_system.exam.model.dto.response.ExamResponse;
 import com.examination_system.exam.model.mapper.ExamMapper;
 import jakarta.validation.Valid;
@@ -32,21 +33,21 @@ public class ExamService {
     private final ExamMapper examMapper;
 
     @Transactional
-    public ExamResponse createExam(ExamDto examDto) {
+    public ExamResponse createExam(ExamCreationRequest request) {
         // Get subject
-        Subject subject = subjectRepository.findById(examDto.getSubjectCode())
+        Subject subject = subjectRepository.findById(request.getSubjectCode())
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
         
         // Get questions based on templates
-        List<Question> questions = getQuestionsFromTemplates(examDto.getQuestionTemplates());
+        List<Question> questions = getQuestionsFromTemplates(request.getQuestionTemplates());
         Collections.shuffle(questions);
         
         // Build exam
         Exam exam = Exam.builder()
-                .duration(examDto.getDuration())
-                .examDate(examDto.getExamDate())
-                .deadline(examDto.getDeadline())
-                .examName(examDto.getExamName())
+                .duration(request.getDuration())
+                .examDate(request.getExamDate())
+                .deadline(request.getDeadline())
+                .examName(request.getExamName())
                 .examCode(generateExamCode())
                 .subject(subject)
                 .questions(questions)
